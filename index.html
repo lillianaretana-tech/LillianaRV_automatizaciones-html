@@ -1,125 +1,155 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lilliana Retana | Automatizaciones</title>
-<style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#08111a;
-    color:#fff;
-}
-header{
-    padding:40px 20px;
-    text-align:center;
-    background:linear-gradient(135deg,#0d1c2b,#10263f);
-}
-h1{
-    margin:0;
-    font-size:2.4rem;
-}
-p{
-    color:#9fb4c7;
-}
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:30px 20px;
-}
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-}
-.card{
-    background:#102030;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;
-    padding:24px;
-    transition:.2s;
-}
-.card:hover{
-    transform:translateY(-4px);
-    border-color:#00e5c0;
-}
-.card h2{
-    margin-top:0;
-}
-.card p{
-    min-height:70px;
-}
-.btn{
-    display:inline-block;
-    margin-top:10px;
-    padding:12px 18px;
-    border-radius:10px;
-    text-decoration:none;
-    color:#000;
-    background:#00e5c0;
-    font-weight:bold;
-}
-footer{
-    text-align:center;
-    padding:30px;
-    color:#7f93a5;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lilliana Retana | Automatizaciones y Apps HTML</title>
+  <meta name="description" content="Portal de herramientas HTML, automatizaciones, cotizadores, controles operativos y soluciones digitales creadas por Lilliana Retana." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#07111d;--bg2:#0d1e31;--card:#10263c;--card2:#0b1a2b;--line:rgba(255,255,255,.11);
+      --text:#edf7ff;--muted:#9ab2c7;--accent:#00e5c0;--blue:#4da3ff;--orange:#ff8a3d;--green:#55e08c;
+      --shadow:0 18px 55px rgba(0,0,0,.28);--r:22px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:Figtree,system-ui,sans-serif;background:radial-gradient(circle at 10% 0%,rgba(0,229,192,.12),transparent 35%),radial-gradient(circle at 90% 10%,rgba(77,163,255,.14),transparent 38%),var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:54px 54px;pointer-events:none}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:auto;position:relative;z-index:1}
+    header{padding:28px 0 18px;position:sticky;top:0;background:rgba(7,17,29,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:10}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-family:Syne,sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:.02em}.brand span{color:var(--accent)}
+    .navlinks{display:flex;gap:10px;flex-wrap:wrap}.navlinks a{font-size:.88rem;color:var(--muted);padding:8px 12px;border:1px solid transparent;border-radius:999px}.navlinks a:hover{border-color:var(--line);color:var(--text);background:rgba(255,255,255,.04)}
+    .hero{padding:70px 0 44px;text-align:center}.eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--accent);border:1px solid rgba(0,229,192,.22);background:rgba(0,229,192,.08);padding:7px 14px;border-radius:999px;font-weight:700;font-size:.82rem;margin-bottom:18px}
+    h1{font-family:Syne,sans-serif;font-size:clamp(2.2rem,6vw,5rem);line-height:1.02;letter-spacing:-.05em;max-width:940px;margin:0 auto 18px}.hero p{color:var(--muted);font-size:clamp(1rem,2vw,1.25rem);max-width:780px;margin:0 auto 26px}
+    .cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:13px 18px;font-weight:800;border:1px solid var(--line);background:rgba(255,255,255,.06)}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--blue));color:#04111c;border:none}.btn:hover{transform:translateY(-1px)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 10px}.stat{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:18px;padding:18px;text-align:center}.stat strong{display:block;font-family:Syne,sans-serif;font-size:1.65rem;color:var(--accent)}.stat span{font-size:.85rem;color:var(--muted)}
+    section{padding:52px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:20px}.section-head h2{font-family:Syne,sans-serif;font-size:clamp(1.7rem,3vw,2.6rem)}.section-head p{color:var(--muted);max-width:620px}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.filter{border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);padding:9px 13px;border-radius:999px;font-weight:700;font-size:.86rem;cursor:pointer}.filter.active{background:rgba(0,229,192,.14);border-color:rgba(0,229,192,.35);color:var(--accent)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:linear-gradient(180deg,rgba(16,38,60,.88),rgba(11,26,43,.88));border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:245px}.tag{font-size:.78rem;color:var(--accent);font-weight:800;margin-bottom:10px}.card h3{font-family:Syne,sans-serif;font-size:1.22rem;margin-bottom:8px}.card p{color:var(--muted);font-size:.95rem;margin-bottom:14px;flex:1}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}.chip{font-size:.73rem;border:1px solid var(--line);color:#b9cbe0;border-radius:999px;padding:5px 8px;background:rgba(255,255,255,.04)}.open{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;padding:11px 13px;background:rgba(0,229,192,.12);border:1px solid rgba(0,229,192,.26);color:var(--accent);font-weight:900}.open:hover{background:rgba(0,229,192,.18)}
+    .process{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:20px;padding:20px}.step b{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#061421;margin-bottom:10px}.step h3{font-family:Syne,sans-serif;margin-bottom:6px}.step p{color:var(--muted);font-size:.95rem}
+    footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);text-align:center}
+    .hide{display:none!important}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.stats,.process{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.nav{align-items:flex-start}.navlinks{justify-content:flex-end}}
+    @media(max-width:620px){.grid,.stats,.process{grid-template-columns:1fr}.hero{text-align:left;padding:44px 0 30px}.hero p{margin-left:0}.cta{justify-content:flex-start}.nav{display:block}.navlinks{margin-top:12px;justify-content:flex-start}.card{min-height:auto}}
+  </style>
 </head>
 <body>
-
 <header>
-    <h1>Automatizaciones Inteligentes</h1>
-    <p>Lilliana Retana · Soluciones Digitales</p>
+  <div class="wrap nav">
+    <a class="brand" href="#top">Lilliana Retana <span>Tech</span></a>
+    <nav class="navlinks">
+      <a href="#herramientas">Herramientas</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
 </header>
-
-<div class="container">
-    <div class="grid">
-
-        <div class="card">
-            <h2>🎫 FaciliDesk</h2>
-            <p>Sistema profesional de tiquetes para solicitudes de mantenimiento, métricas y seguimiento técnico.</p>
-            <a class="btn" href="Tiquetes.html">Abrir Sistema</a>
-        </div>
-
-        <div class="card">
-            <h2>📋 Audit Pro</h2>
-            <p>Auditorías de limpieza y mantenimiento con controles y métricas visuales.</p>
-            <a class="btn" href="Audit_pro.html">Abrir</a>
-        </div>
-
-        <div class="card">
-            <h2>🏢 Operaciones Plus</h2>
-            <p>Herramienta estratégica para operaciones y control de proyectos.</p>
-            <a class="btn" href="Operaciones_App.html">Abrir</a>
-        </div>
-
-        <div class="card">
-            <h2>💰 Rommel Pro</h2>
-            <p>Cotizador y asistente de obras para remodelaciones y construcción.</p>
-            <a class="btn" href="Rommel_cotizador_personal.html">Abrir</a>
-        </div>
-
-        <div class="card">
-            <h2>🎓 Bruno Inglés</h2>
-            <p>Plataforma interactiva para aprender inglés paso a paso.</p>
-            <a class="btn" href="Aprende_inglesbruno.html">Abrir</a>
-        </div>
-
-        <div class="card">
-            <h2>🧠 Transformación 360</h2>
-            <p>Sistema integral de hábitos, bienestar y crecimiento personal.</p>
-            <a class="btn" href="Transformacion_360(1).html">Abrir</a>
-        </div>
-
+<main id="top">
+  <section class="hero wrap">
+    <div class="eyebrow">⚙️ Automatizaciones · HTML · IA · Operaciones</div>
+    <h1>Soluciones digitales simples para procesos que antes tomaban horas.</h1>
+    <p>Un portal para centralizar apps, cotizadores, controles, simuladores y herramientas operativas creadas para resolver problemas reales en empresas, ventas, formación y gestión diaria.</p>
+    <div class="cta">
+      <a class="btn primary" href="#herramientas">Ver herramientas</a>
+      <a class="btn" href="#servicios">Cómo puedo ayudarte</a>
     </div>
-</div>
+    <div class="stats">
+      <div class="stat"><strong>18</strong><span>herramientas HTML</span></div>
+      <div class="stat"><strong>5</strong><span>áreas de solución</span></div>
+      <div class="stat"><strong>100%</strong><span>usable desde navegador</span></div>
+      <div class="stat"><strong>0</strong><span>instalación compleja</span></div>
+    </div>
+  </section>
 
+  <section id="herramientas" class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Herramientas disponibles</h2>
+        <p>Selecciona una categoría o abre directamente cada app. Para que los botones funcionen en GitHub Pages, todos los archivos HTML deben estar en la misma carpeta que esta página.</p>
+      </div>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <section id="servicios" class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Servicios que puedo ofrecer</h2>
+        <p>Estas herramientas muestran una línea clara: automatizar controles, ordenar datos, crear cotizadores y convertir procesos manuales en sistemas prácticos.</p>
+      </div>
+    </div>
+    <div class="process">
+      <div class="step"><b>1</b><h3>Diagnóstico</h3><p>Revisión del proceso actual, formularios, Excels, correos y tareas repetitivas.</p></div>
+      <div class="step"><b>2</b><h3>Prototipo</h3><p>Creación de una herramienta simple en HTML, Google Sheets, Make, Supabase o AppSheet.</p></div>
+      <div class="step"><b>3</b><h3>Implementación</h3><p>Entrega, pruebas, ajustes y guía para que el equipo pueda usarlo sin complicarse.</p></div>
+    </div>
+  </section>
+
+  <section id="contacto" class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Contacto</h2>
+        <p>¿Tienes un proceso repetitivo, un Excel pesado o una tarea manual que quieres automatizar? Esta página funciona como vitrina para mostrar ejemplos reales y abrir conversación con posibles clientes.</p>
+      </div>
+      <a class="btn primary" href="mailto:lillianaretana.tech@gmail.com">Escríbeme</a>
+    </div>
+  </section>
+</main>
 <footer>
-© 2026 · Lilliana Retana · Costa Rica
+  <div class="wrap">© 2026 Lilliana Retana Tech · Automatizaciones prácticas para operación, ventas y gestión.</div>
 </footer>
+<script>
+const tools = [
+  {cat:'Operaciones', icon:'📋', title:'Operaciones Estratégicas Plus', file:'Operaciones_App.html', desc:'App operativa para seguimiento, control y consulta de información clave en campo.', tags:['Operaciones','Control','Móvil']},
+  {cat:'Operaciones', icon:'🧹', title:'Auditorías de Limpieza LRV', file:'Auditorias_limpieza_LRV.html', desc:'Sistema de auditoría para limpieza y mantenimiento con evaluación por áreas.', tags:['Auditoría','Calidad','Limpieza']},
+  {cat:'Operaciones', icon:'✅', title:'Audit Pro', file:'Audit_pro.html', desc:'Herramienta para inspecciones, evaluación visual y registro de oportunidades.', tags:['Auditoría','Reporte','Control']},
+  {cat:'Operaciones', icon:'🧪', title:'Sistema de Inspección Química', file:'Sistema inspección químicos VF.html', desc:'Control para inspección y seguimiento de químicos en operación.', tags:['Químicos','Seguridad','Inspección']},
+  {cat:'Operaciones', icon:'🌿', title:'Control Mensual de Reciclaje', file:'Reciclaje - Control Mensual.html', desc:'Registro de pesos, categorías de residuos y exportación para seguimiento ambiental.', tags:['Reciclaje','CSV','Ambiente']},
+  {cat:'Operaciones', icon:'🏖️', title:'Control de Vacaciones', file:'Vacaciones.html', desc:'Sistema para administrar vacaciones, coberturas y datos de colaboradores.', tags:['RRHH','Supabase','Vacaciones']},
+  {cat:'Operaciones', icon:'📝', title:'LRV Tareas', file:'LRV_tareas.html', desc:'Organizador de tareas y pendientes para control diario.', tags:['Tareas','Productividad','Gestión']},
 
+
+  {cat:'Operaciones', icon:'🎫', title:'FaciliDesk — Sistema de Tiquetes', file:'Tiquetes.html', desc:'Sistema profesional de tiquetes para solicitudes, seguimiento técnico, métricas y control operativo.', tags:['Tiquetes','Facilidades','Métricas']},
+
+  {cat:'Cotizadores', icon:'🏗️', title:'3Rs Cotizador', file:'3Rs Cotizador.html', desc:'Cotizador para remodelaciones y trabajos de construcción.', tags:['Cotización','Construcción','Ventas']},
+  {cat:'Cotizadores', icon:'🧱', title:'Rommel Pro — Asistente de Obras', file:'Rommel_cotizador_personal.html', desc:'Asistente para presupuestos, materiales y gestión básica de obras.', tags:['Obras','Cotizador','Móvil']},
+  {cat:'Cotizadores', icon:'🚗', title:'Calculadora de Costos Mecánicos', file:'V5 calculadora_mecanica movil.html', desc:'Calculadora para generar estimaciones de servicios mecánicos en Costa Rica.', tags:['Mecánica','Precios','Costa Rica']},
+
+  {cat:'Finanzas', icon:'💰', title:'Clasificador Automático de Presupuesto', file:'Presupuesto - clasificador automático.html', desc:'Clasifica compras y gastos por categoría para control presupuestario.', tags:['Exactus','CSV','Presupuesto']},
+
+  {cat:'Educación', icon:'🇺🇸', title:'Aprende Inglés con Bruno', file:'Aprende_inglesbruno.html', desc:'Landing del curso interactivo de inglés para adultos y adultos mayores.', tags:['Inglés','Bruno','Landing']},
+  {cat:'Educación', icon:'📚', title:'Clases Inglés con Bruno', file:'clases_inglesconbruno.html', desc:'Sistema interactivo de aprendizaje de inglés y práctica por niveles.', tags:['Curso','Idiomas','Interactivo']},
+  {cat:'Educación', icon:'🚦', title:'Simulacro Examen de Licencia', file:'Simulacro_examen_licencia.html', desc:'Práctica para examen de licencia de conducir en Costa Rica.', tags:['Licencia','Práctica','Costa Rica']},
+
+  {cat:'Bienestar', icon:'🌱', title:'Transformación 360° — Landing', file:'Transformacion_360(1).html', desc:'Página de venta para app de transformación personal, hábitos y progreso.', tags:['Landing','Bienestar','Ventas']},
+  {cat:'Bienestar', icon:'📊', title:'App Transformación 360°', file:'App_Transformacion_360.html', desc:'App personal para hábitos, medidas, alimentación, ejercicio y progreso.', tags:['Hábitos','Salud','App']},
+
+  {cat:'Página principal', icon:'🌐', title:'Landing Automatizaciones', file:'landing_page_automatizacion.html', desc:'Versión anterior de la página de automatizaciones y servicios.', tags:['Portfolio','Servicios','Tech']}
+];
+const cats = ['Todas', ...new Set(tools.map(t=>t.cat))];
+let current = 'Todas';
+function renderFilters(){
+  document.getElementById('filters').innerHTML = cats.map(c=>`<button class="filter ${c===current?'active':''}" onclick="setCat('${c}')">${c}</button>`).join('');
+}
+function renderCards(){
+  const data = current==='Todas' ? tools : tools.filter(t=>t.cat===current);
+  document.getElementById('cards').innerHTML = data.map(t=>`
+    <article class="card">
+      <div class="tag">${t.icon} ${t.cat}</div>
+      <h3>${t.title}</h3>
+      <p>${t.desc}</p>
+      <div class="chips">${t.tags.map(x=>`<span class="chip">${x}</span>`).join('')}</div>
+      <a class="open" href="${encodeURI(t.file)}" target="_blank" rel="noopener">Abrir herramienta →</a>
+    </article>`).join('');
+}
+function setCat(c){current=c;renderFilters();renderCards();}
+renderFilters();renderCards();
+</script>
 </body>
 </html>
