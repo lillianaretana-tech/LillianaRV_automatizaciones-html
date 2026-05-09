@@ -1,235 +1,152 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo de HTML</title>
-  <meta name="description" content="Índice de archivos HTML publicados.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lilliana Retana | Automatizaciones y Apps HTML</title>
+  <meta name="description" content="Portal de herramientas HTML, automatizaciones, cotizadores, controles operativos y soluciones digitales creadas por Lilliana Retana." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --emerald:#2ecc71;
-      --emerald-dark:#27ae60;
-      --ink:#2c3e50;
-      --bg:#f5f7fb;
-      --card:#ffffff;
-      --accent:#667eea;
+    :root{
+      --bg:#07111d;--bg2:#0d1e31;--card:#10263c;--card2:#0b1a2b;--line:rgba(255,255,255,.11);
+      --text:#edf7ff;--muted:#9ab2c7;--accent:#00e5c0;--blue:#4da3ff;--orange:#ff8a3d;--green:#55e08c;
+      --shadow:0 18px 55px rgba(0,0,0,.28);--r:22px;
     }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #e8fff4 0%, #f7fcff 100%);
-      color: var(--ink);
-      min-height: 100vh;
-    }
-    .header {
-      background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));
-      color:white;
-      padding:32px 16px;
-      text-align:center;
-      position: sticky; top:0; z-index:10;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-    .header h1 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight:800; letter-spacing:0.3px; }
-    .header p { opacity:.95; margin-top:6px; }
-    .container { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
-    .search-wrap {
-      margin: 20px 0 10px;
-      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
-    }
-    .search { flex:1; min-width: 240px; }
-    .search input {
-      width:100%; padding:12px 14px; border-radius:12px; border:2px solid #e6f4ea;
-      outline:none; font-size:16px; transition:.2s; background:white;
-    }
-    .search input:focus { border-color: var(--emerald-dark); box-shadow:0 0 0 3px rgba(39,174,96,.15); }
-    .grid {
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap:16px;
-    }
-    .card {
-      display:flex; align-items:center; gap:14px; text-decoration:none;
-      background:var(--card); border:1px solid #ecf6ef; border-radius:16px; padding:16px;
-      box-shadow: 0 6px 18px rgba(46, 204, 113, 0.12);
-      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-      color: var(--ink);
-    }
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: var(--emerald);
-      box-shadow: 0 10px 28px rgba(39, 174, 96, 0.20);
-    }
-    .card-icon {
-      width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg, #a7f3d0, #6ee7b7);
-      display:grid; place-items:center; font-size:22px;
-      flex-shrink:0;
-    }
-    .card-body { flex:1; min-width:0; }
-    .card-title { font-size:16px; font-weight:700; line-height:1.25; }
-    .card-desc { font-size:13px; color:#64748b; margin-top:4px; }
-    .card-arrow { font-size:24px; color:#a0aec0; font-weight:700; }
-    .footer { text-align:center; color:#6b7280; font-size:13px; margin:28px 0; }
-    .tag { display:inline-block; background:#e6f4ea; color:#1b5e20; padding:6px 10px; border-radius:999px; font-size:12px; margin-top:8px; }
-    @media (prefers-color-scheme: dark) {
-      body { background: linear-gradient(135deg, #0b1720, #0f1f2a); color:#e5f7ec; }
-      .container { color:#e5f7ec; }
-      .card { background:#0f2430; border-color:#103645; box-shadow:none; }
-      .card-desc { color:#cbd5e1; }
-      .header { box-shadow:none; }
-      .search input { background:#0f2430; color:#e5f7ec; border-color:#103645; }
-    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:Figtree,system-ui,sans-serif;background:radial-gradient(circle at 10% 0%,rgba(0,229,192,.12),transparent 35%),radial-gradient(circle at 90% 10%,rgba(77,163,255,.14),transparent 38%),var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:54px 54px;pointer-events:none}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:auto;position:relative;z-index:1}
+    header{padding:28px 0 18px;position:sticky;top:0;background:rgba(7,17,29,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:10}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-family:Syne,sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:.02em}.brand span{color:var(--accent)}
+    .navlinks{display:flex;gap:10px;flex-wrap:wrap}.navlinks a{font-size:.88rem;color:var(--muted);padding:8px 12px;border:1px solid transparent;border-radius:999px}.navlinks a:hover{border-color:var(--line);color:var(--text);background:rgba(255,255,255,.04)}
+    .hero{padding:70px 0 44px;text-align:center}.eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--accent);border:1px solid rgba(0,229,192,.22);background:rgba(0,229,192,.08);padding:7px 14px;border-radius:999px;font-weight:700;font-size:.82rem;margin-bottom:18px}
+    h1{font-family:Syne,sans-serif;font-size:clamp(2.2rem,6vw,5rem);line-height:1.02;letter-spacing:-.05em;max-width:940px;margin:0 auto 18px}.hero p{color:var(--muted);font-size:clamp(1rem,2vw,1.25rem);max-width:780px;margin:0 auto 26px}
+    .cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:13px 18px;font-weight:800;border:1px solid var(--line);background:rgba(255,255,255,.06)}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--blue));color:#04111c;border:none}.btn:hover{transform:translateY(-1px)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 10px}.stat{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:18px;padding:18px;text-align:center}.stat strong{display:block;font-family:Syne,sans-serif;font-size:1.65rem;color:var(--accent)}.stat span{font-size:.85rem;color:var(--muted)}
+    section{padding:52px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:20px}.section-head h2{font-family:Syne,sans-serif;font-size:clamp(1.7rem,3vw,2.6rem)}.section-head p{color:var(--muted);max-width:620px}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.filter{border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);padding:9px 13px;border-radius:999px;font-weight:700;font-size:.86rem;cursor:pointer}.filter.active{background:rgba(0,229,192,.14);border-color:rgba(0,229,192,.35);color:var(--accent)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:linear-gradient(180deg,rgba(16,38,60,.88),rgba(11,26,43,.88));border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:245px}.tag{font-size:.78rem;color:var(--accent);font-weight:800;margin-bottom:10px}.card h3{font-family:Syne,sans-serif;font-size:1.22rem;margin-bottom:8px}.card p{color:var(--muted);font-size:.95rem;margin-bottom:14px;flex:1}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}.chip{font-size:.73rem;border:1px solid var(--line);color:#b9cbe0;border-radius:999px;padding:5px 8px;background:rgba(255,255,255,.04)}.open{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;padding:11px 13px;background:rgba(0,229,192,.12);border:1px solid rgba(0,229,192,.26);color:var(--accent);font-weight:900}.open:hover{background:rgba(0,229,192,.18)}
+    .process{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:20px;padding:20px}.step b{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#061421;margin-bottom:10px}.step h3{font-family:Syne,sans-serif;margin-bottom:6px}.step p{color:var(--muted);font-size:.95rem}
+    footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);text-align:center}
+    .hide{display:none!important}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.stats,.process{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.nav{align-items:flex-start}.navlinks{justify-content:flex-end}}
+    @media(max-width:620px){.grid,.stats,.process{grid-template-columns:1fr}.hero{text-align:left;padding:44px 0 30px}.hero p{margin-left:0}.cta{justify-content:flex-start}.nav{display:block}.navlinks{margin-top:12px;justify-content:flex-start}.card{min-height:auto}}
   </style>
 </head>
 <body>
-  <header class="header">
-    <h1>📚 Catálogo de Archivos HTML</h1>
-    <p>Orden alfabético · Estilo esmeralda · Click para abrir</p>
-  </header>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">Lilliana Retana <span>Tech</span></a>
+    <nav class="navlinks">
+      <a href="#herramientas">Herramientas</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+<main id="top">
+  <section class="hero wrap">
+    <div class="eyebrow">⚙️ Automatizaciones · HTML · IA · Operaciones</div>
+    <h1>Soluciones digitales simples para procesos que antes tomaban horas.</h1>
+    <p>Un portal para centralizar apps, cotizadores, controles, simuladores y herramientas operativas creadas para resolver problemas reales en empresas, ventas, formación y gestión diaria.</p>
+    <div class="cta">
+      <a class="btn primary" href="#herramientas">Ver herramientas</a>
+      <a class="btn" href="#servicios">Cómo puedo ayudarte</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>17</strong><span>herramientas HTML</span></div>
+      <div class="stat"><strong>5</strong><span>áreas de solución</span></div>
+      <div class="stat"><strong>100%</strong><span>usable desde navegador</span></div>
+      <div class="stat"><strong>0</strong><span>instalación compleja</span></div>
+    </div>
+  </section>
 
-  <main class="container">
-    <div class="search-wrap">
-      <div class="search">
-        <input id="filter" type="search" placeholder="🔎 Filtrar por nombre… (escribe para buscar)">
+  <section id="herramientas" class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Herramientas disponibles</h2>
+        <p>Selecciona una categoría o abre directamente cada app. Para que los botones funcionen en GitHub Pages, todos los archivos HTML deben estar en la misma carpeta que esta página.</p>
       </div>
-      <span class="tag">12 archivos</span>
     </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="cards"></div>
+  </section>
 
-    <div id="grid" class="grid">
-      
-    <a class="card" href="3Rs%20Remodelaciones%20planilla.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">3Rs Remodelaciones planilla.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="Bayer%20Metro%20-%20Dashboard%20Control%20Horas.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">Bayer Metro - Dashboard Control Horas.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="Calculadora%20construcci%C3%B3n%20Set%2017.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">Calculadora construcción Set 17.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="Factura%20RRR%20presupuesto_V3.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">Factura RRR presupuesto_V3.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="landing_page_automatizacion%20%282%29.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">landing_page_automatizacion (2).html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="Portal%20-%20SBM%20-%20Control%20Horas.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">Portal - SBM - Control Horas.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="Presupuesto%20-%20clasificador%20autom%C3%A1tico.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">Presupuesto - clasificador automático.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="Presupuesto%20RRR%20Remodelaciones.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">Presupuesto RRR Remodelaciones.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="Reciclaje%20-%20Control%20Mensual.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">Reciclaje - Control Mensual.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="Reporte%20mensual%20SBM%20-%20Final.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">Reporte mensual SBM - Final.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="Sistema%20inspecci%C3%B3n%20qu%C3%ADmicos%20VF.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">Sistema inspección químicos VF.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
-
-    <a class="card" href="V5%20calculadora_mecanica%20movil.html" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon">📄</div>
-        <div class="card-body">
-            <h3 class="card-title">V5 calculadora_mecanica movil.html</h3>
-            <p class="card-desc">Abrir archivo HTML</p>
-        </div>
-        <div class="card-arrow">›</div>
-    </a>
-    
+  <section id="servicios" class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Servicios que puedo ofrecer</h2>
+        <p>Estas herramientas muestran una línea clara: automatizar controles, ordenar datos, crear cotizadores y convertir procesos manuales en sistemas prácticos.</p>
+      </div>
     </div>
-  </main>
+    <div class="process">
+      <div class="step"><b>1</b><h3>Diagnóstico</h3><p>Revisión del proceso actual, formularios, Excels, correos y tareas repetitivas.</p></div>
+      <div class="step"><b>2</b><h3>Prototipo</h3><p>Creación de una herramienta simple en HTML, Google Sheets, Make, Supabase o AppSheet.</p></div>
+      <div class="step"><b>3</b><h3>Implementación</h3><p>Entrega, pruebas, ajustes y guía para que el equipo pueda usarlo sin complicarse.</p></div>
+    </div>
+  </section>
 
-  <div class="footer">© sandbox · Índice generado automáticamente</div>
+  <section id="contacto" class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Contacto</h2>
+        <p>¿Tienes un proceso repetitivo, un Excel pesado o una tarea manual que quieres automatizar? Esta página funciona como vitrina para mostrar ejemplos reales y abrir conversación con posibles clientes.</p>
+      </div>
+      <a class="btn primary" href="mailto:lillianaretana.tech@gmail.com">Escríbeme</a>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">© 2026 Lilliana Retana Tech · Automatizaciones prácticas para operación, ventas y gestión.</div>
+</footer>
+<script>
+const tools = [
+  {cat:'Operaciones', icon:'📋', title:'Operaciones Estratégicas Plus', file:'Operaciones_App.html', desc:'App operativa para seguimiento, control y consulta de información clave en campo.', tags:['Operaciones','Control','Móvil']},
+  {cat:'Operaciones', icon:'🧹', title:'Auditorías de Limpieza LRV', file:'Auditorias_limpieza_LRV.html', desc:'Sistema de auditoría para limpieza y mantenimiento con evaluación por áreas.', tags:['Auditoría','Calidad','Limpieza']},
+  {cat:'Operaciones', icon:'✅', title:'Audit Pro', file:'Audit_pro.html', desc:'Herramienta para inspecciones, evaluación visual y registro de oportunidades.', tags:['Auditoría','Reporte','Control']},
+  {cat:'Operaciones', icon:'🧪', title:'Sistema de Inspección Química', file:'Sistema inspección químicos VF.html', desc:'Control para inspección y seguimiento de químicos en operación.', tags:['Químicos','Seguridad','Inspección']},
+  {cat:'Operaciones', icon:'🌿', title:'Control Mensual de Reciclaje', file:'Reciclaje - Control Mensual.html', desc:'Registro de pesos, categorías de residuos y exportación para seguimiento ambiental.', tags:['Reciclaje','CSV','Ambiente']},
+  {cat:'Operaciones', icon:'🏖️', title:'Control de Vacaciones', file:'Vacaciones.html', desc:'Sistema para administrar vacaciones, coberturas y datos de colaboradores.', tags:['RRHH','Supabase','Vacaciones']},
+  {cat:'Operaciones', icon:'📝', title:'LRV Tareas', file:'LRV_tareas.html', desc:'Organizador de tareas y pendientes para control diario.', tags:['Tareas','Productividad','Gestión']},
 
-  <script>
-    const input = document.getElementById('filter');
-    const grid = document.getElementById('grid');
-    input.addEventListener('input', () => {
-      const q = input.value.toLowerCase();
-      for (const card of grid.querySelectorAll('.card')) {
-        const title = card.querySelector('.card-title').textContent.toLowerCase();
-        card.style.display = title.includes(q) ? '' : 'none';
-      }
-    });
-  </script>
+  {cat:'Cotizadores', icon:'🏗️', title:'3Rs Cotizador', file:'3Rs Cotizador.html', desc:'Cotizador para remodelaciones y trabajos de construcción.', tags:['Cotización','Construcción','Ventas']},
+  {cat:'Cotizadores', icon:'🧱', title:'Rommel Pro — Asistente de Obras', file:'Rommel_cotizador_personal.html', desc:'Asistente para presupuestos, materiales y gestión básica de obras.', tags:['Obras','Cotizador','Móvil']},
+  {cat:'Cotizadores', icon:'🚗', title:'Calculadora de Costos Mecánicos', file:'V5 calculadora_mecanica movil.html', desc:'Calculadora para generar estimaciones de servicios mecánicos en Costa Rica.', tags:['Mecánica','Precios','Costa Rica']},
+
+  {cat:'Finanzas', icon:'💰', title:'Clasificador Automático de Presupuesto', file:'Presupuesto - clasificador automático.html', desc:'Clasifica compras y gastos por categoría para control presupuestario.', tags:['Exactus','CSV','Presupuesto']},
+
+  {cat:'Educación', icon:'🇺🇸', title:'Aprende Inglés con Bruno', file:'Aprende_inglesbruno.html', desc:'Landing del curso interactivo de inglés para adultos y adultos mayores.', tags:['Inglés','Bruno','Landing']},
+  {cat:'Educación', icon:'📚', title:'Clases Inglés con Bruno', file:'clases_inglesconbruno.html', desc:'Sistema interactivo de aprendizaje de inglés y práctica por niveles.', tags:['Curso','Idiomas','Interactivo']},
+  {cat:'Educación', icon:'🚦', title:'Simulacro Examen de Licencia', file:'Simulacro_examen_licencia.html', desc:'Práctica para examen de licencia de conducir en Costa Rica.', tags:['Licencia','Práctica','Costa Rica']},
+
+  {cat:'Bienestar', icon:'🌱', title:'Transformación 360° — Landing', file:'Transformacion_360(1).html', desc:'Página de venta para app de transformación personal, hábitos y progreso.', tags:['Landing','Bienestar','Ventas']},
+  {cat:'Bienestar', icon:'📊', title:'App Transformación 360°', file:'App_Transformacion_360.html', desc:'App personal para hábitos, medidas, alimentación, ejercicio y progreso.', tags:['Hábitos','Salud','App']},
+
+  {cat:'Página principal', icon:'🌐', title:'Landing Automatizaciones', file:'landing_page_automatizacion.html', desc:'Versión anterior de la página de automatizaciones y servicios.', tags:['Portfolio','Servicios','Tech']}
+];
+const cats = ['Todas', ...new Set(tools.map(t=>t.cat))];
+let current = 'Todas';
+function renderFilters(){
+  document.getElementById('filters').innerHTML = cats.map(c=>`<button class="filter ${c===current?'active':''}" onclick="setCat('${c}')">${c}</button>`).join('');
+}
+function renderCards(){
+  const data = current==='Todas' ? tools : tools.filter(t=>t.cat===current);
+  document.getElementById('cards').innerHTML = data.map(t=>`
+    <article class="card">
+      <div class="tag">${t.icon} ${t.cat}</div>
+      <h3>${t.title}</h3>
+      <p>${t.desc}</p>
+      <div class="chips">${t.tags.map(x=>`<span class="chip">${x}</span>`).join('')}</div>
+      <a class="open" href="${encodeURI(t.file)}" target="_blank" rel="noopener">Abrir herramienta →</a>
+    </article>`).join('');
+}
+function setCat(c){current=c;renderFilters();renderCards();}
+renderFilters();renderCards();
+</script>
 </body>
 </html>
