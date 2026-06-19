@@ -6,7 +6,7 @@
     <title>Control de Métricas - Supervisores</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@latest/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
     <style>
         * {
             margin: 0;
@@ -578,12 +578,13 @@
         <!-- ACCIONES -->
         <div class="actions-bar">
             <button class="action-btn" id="exportarBtn">📊 Exportar Excel</button>
-            <button class="action-btn" id="exportarCSVBtn">📋 Exportar para Importar</button>
+            <button class="action-btn" id="exportarCSVBtn" style="display: none;">📋 Exportar para Importar</button>
             <button class="action-btn" id="exportarPDFBtn">📄 Exportar PDF</button>
-            <button class="action-btn" id="copiarTextoBtn">📋 Copiar Datos en Texto</button>
-            <button class="action-btn" id="importarBtn">📥 Importar Archivo</button>
-            <button class="action-btn" onclick="document.getElementById('modalImportarTexto').classList.remove('hidden'); document.getElementById('modalImportarTexto').style.display='flex';">📥 Importar Texto</button>
+            <button class="action-btn" id="copiarTextoBtn" style="display: none;">📋 Copiar Datos en Texto</button>
+            <button class="action-btn" id="importarBtn" style="display: none;">📥 Importar Archivo</button>
+            <button class="action-btn" style="display: none;" onclick="document.getElementById('modalImportarTexto').classList.remove('hidden'); document.getElementById('modalImportarTexto').style.display='flex';">📥 Importar Texto</button>
             <input type="file" id="archivoImportar" accept=".csv,.xls,.xlsx" style="display: none;">
+            <input type="file" id="archivoImportarUniversal" accept=".csv,.xls,.xlsx" style="display: none;">
             <button class="action-btn reset" id="resetBtn">🔄 Resetear Mes</button>
         </div>
 
@@ -797,9 +798,164 @@
             return Math.round((completadas / tareas.length) * 100);
         }
 
+        function normalizarValor(valor) {
+            return String(valor ?? '').trim().replace(/^"|"$/g, '');
+        }
+
+        function esEntregaMarcada(valor) {
+            const texto = normalizarValor(valor).toLowerCase();
+            return ['si', 'sí', 'sÃ­', '✓', '✔', 'x', 'true', '1', 'completo', 'completado'].includes(texto);
+        }
+
+        function limpiarNombreHoja(nombre) {
+            return String(nombre).replace(/[\\/?*[\]:]/g, '').slice(0, 31) || 'Metricas';
+        }
+
+        function construirDatosExportacion() {
+            const header = ['Supervisor', ...tareas.map(t => t.nombre), 'Cumplimiento %'];
+            const rows = supervisores.map(sup => {
+                const fila = [sup];
+                tareas.forEach(t => {
+                    fila.push(entregas[`${sup}-${t.id}`] ? 'Sí' : '');
+                });
+                fila.push(`${calcularCumplimiento(sup)}%`);
+                return fila;
+            });
+            return [header, ...rows];
+        }
+
+        function descargarBlob(blob, nombreArchivo) {
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = nombreArchivo;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        function escaparCsv(valor) {
+            const texto = String(valor ?? '');
+            if (/[",\n\r]/.test(texto)) {
+                return `"${texto.replace(/"/g, '""')}"`;
+            }
+            return texto;
+        }
+
+        function parsearCSV(texto) {
+            const filas = [];
+            let fila = [];
+            let celda = '';
+            let dentroComillas = false;
+
+            for (let i = 0; i < texto.length; i++) {
+                const char = texto[i];
+                const siguiente = texto[i + 1];
+
+                if (char === '"' && dentroComillas && siguiente === '"') {
+                    celda += '"';
+                    i++;
+                } else if (char === '"') {
+                    dentroComillas = !dentroComillas;
+                } else if (char === ',' && !dentroComillas) {
+                    fila.push(celda);
+                    celda = '';
+                } else if ((char === '\n' || char === '\r') && !dentroComillas) {
+                    if (char === '\r' && siguiente === '\n') i++;
+                    fila.push(celda);
+                    if (fila.some(v => String(v).trim() !== '')) filas.push(fila);
+                    fila = [];
+                    celda = '';
+                } else {
+                    celda += char;
+                }
+            }
+
+            fila.push(celda);
+            if (fila.some(v => String(v).trim() !== '')) filas.push(fila);
+            return filas;
+        }
+
+        function importarFilas(filas) {
+            const filasValidas = filas
+                .map(fila => fila.map(celda => normalizarValor(celda)))
+                .filter(fila => fila.some(celda => celda));
+
+            if (filasValidas.length < 2) {
+                throw new Error('El archivo necesita encabezados y al menos un supervisor.');
+            }
+
+            const header = filasValidas[0];
+            const supervisorIdx = header.findIndex(h => h.toLowerCase().includes('supervisor'));
+            const cumplimientoIdx = header.findIndex(h => h.toLowerCase().includes('cumplimiento'));
+
+            if (supervisorIdx === -1) {
+                throw new Error('No se encontró la columna "Supervisor".');
+            }
+
+            const tareasColumnas = [];
+            for (let i = supervisorIdx + 1; i < header.length; i++) {
+                if (i === cumplimientoIdx) continue;
+                const nombreTarea = header[i];
+                if (nombreTarea) {
+                    tareasColumnas.push({ nombre: nombreTarea, indice: i });
+                }
+            }
+
+            tareasColumnas.forEach(col => {
+                const tareaExiste = tareas.find(t => t.nombre.toLowerCase() === col.nombre.toLowerCase());
+                if (!tareaExiste) {
+                    const newId = Math.max(...tareas.map(t => t.id), 0) + 1;
+                    tareas.push({ id: newId, nombre: col.nombre, vencimiento: 'Variable' });
+                }
+            });
+
+            const nuevosSupervisores = new Set();
+            const nuevasEntregas = {};
+
+            for (let i = 1; i < filasValidas.length; i++) {
+                const valores = filasValidas[i];
+                const supervisor = valores[supervisorIdx];
+                if (!supervisor) continue;
+
+                nuevosSupervisores.add(supervisor);
+
+                tareasColumnas.forEach(col => {
+                    const tareaEncontrada = tareas.find(t => t.nombre.toLowerCase() === col.nombre.toLowerCase());
+                    if (tareaEncontrada && esEntregaMarcada(valores[col.indice])) {
+                        nuevasEntregas[`${supervisor}-${tareaEncontrada.id}`] = true;
+                    }
+                });
+            }
+
+            if (nuevosSupervisores.size === 0) {
+                throw new Error('No se encontraron supervisores en el archivo.');
+            }
+
+            return {
+                supervisores: Array.from(nuevosSupervisores),
+                entregas: nuevasEntregas,
+                tareasImportadas: tareasColumnas.length,
+                entregasImportadas: Object.keys(nuevasEntregas).length
+            };
+        }
+
+        function aplicarImportacion(resultado) {
+            if (confirm(`¿Importar:\n${resultado.supervisores.length} supervisor(es)\n${resultado.entregasImportadas} entrega(s)\n${resultado.tareasImportadas} tareas?`)) {
+                supervisores = resultado.supervisores;
+                entregas = resultado.entregas;
+                guardar();
+                render();
+                alert('✅ Datos importados correctamente');
+                return true;
+            }
+            return false;
+        }
+
         // Importar datos
         function importarDatos() {
-            document.getElementById('archivoImportar').click();
+            document.getElementById('archivoImportarUniversal').click();
         }
 
         document.getElementById('archivoImportar').addEventListener('change', (e) => {
@@ -1022,6 +1178,267 @@
                     document.body.removeChild(contenedor);
                 });
             }, 100);
+        }
+
+        document.getElementById('archivoImportarUniversal').addEventListener('change', (e) => {
+            const archivo = e.target.files[0];
+            if (!archivo) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    let filas;
+                    const nombre = archivo.name.toLowerCase();
+
+                    if (nombre.endsWith('.xlsx') || nombre.endsWith('.xls')) {
+                        if (typeof XLSX === 'undefined') {
+                            throw new Error('No se pudo cargar la libreria XLSX. Revisa tu conexion a internet.');
+                        }
+                        const data = new Uint8Array(event.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const primeraHoja = workbook.SheetNames[0];
+                        filas = XLSX.utils.sheet_to_json(workbook.Sheets[primeraHoja], { header: 1, defval: '' });
+                    } else {
+                        let contenido = event.target.result || '';
+                        if (contenido.charCodeAt(0) === 0xFEFF) contenido = contenido.slice(1);
+                        filas = parsearCSV(contenido);
+                    }
+
+                    const resultado = importarFilas(filas);
+                    aplicarImportacion(resultado);
+                } catch (error) {
+                    console.error(error);
+                    alert('Error al importar: ' + error.message);
+                } finally {
+                    e.target.value = '';
+                }
+            };
+
+            if (archivo.name.toLowerCase().endsWith('.xlsx') || archivo.name.toLowerCase().endsWith('.xls')) {
+                reader.readAsArrayBuffer(archivo);
+            } else {
+                reader.readAsText(archivo, 'UTF-8');
+            }
+        });
+
+        // Exporta un Excel real (.xlsx), no CSV renombrado.
+        function exportarExcel() {
+            if (typeof XLSX === 'undefined') {
+                alert('No se pudo cargar la libreria XLSX. Revisa tu conexion a internet e intenta de nuevo.');
+                return;
+            }
+
+            const fecha = new Date().toISOString().split('T')[0];
+            const totalSupervisores = supervisores.length;
+            const totalTareas = tareas.length;
+            const completos = supervisores.filter(sup => calcularCumplimiento(sup) === 100).length;
+            const promedio = totalSupervisores > 0
+                ? supervisores.reduce((sum, sup) => sum + calcularCumplimiento(sup), 0) / totalSupervisores / 100
+                : 0;
+
+            const workbook = XLSX.utils.book_new();
+            workbook.Props = {
+                Title: 'Control de Metricas - Supervisores',
+                Subject: 'Reporte de cumplimiento',
+                Author: 'Supervisor Tracking',
+                CreatedDate: new Date()
+            };
+
+            const resumen = [
+                ['Control de Metricas - Supervisores'],
+                [`Generado el ${new Date().toLocaleDateString('es-ES')}`],
+                [],
+                ['Indicador', 'Valor'],
+                ['Supervisores', totalSupervisores],
+                ['Tareas activas', totalTareas],
+                ['Supervisores al 100%', `${completos}/${totalSupervisores}`],
+                ['Cumplimiento promedio', promedio],
+                [],
+                ['Supervisor', 'Cumplimiento', 'Estado']
+            ];
+
+            supervisores.forEach(sup => {
+                const cumplimiento = calcularCumplimiento(sup) / 100;
+                resumen.push([
+                    sup,
+                    cumplimiento,
+                    cumplimiento === 1 ? 'Completo' : cumplimiento >= 0.8 ? 'En seguimiento' : 'Atrasado'
+                ]);
+            });
+
+            const resumenWs = XLSX.utils.aoa_to_sheet(resumen);
+            resumenWs['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 2 } }];
+            resumenWs['!cols'] = [{ wch: 30 }, { wch: 18 }, { wch: 18 }];
+            resumenWs['!autofilter'] = { ref: `A10:C${Math.max(10, resumen.length)}` };
+
+            aplicarEstiloCelda(resumenWs, 'A1', {
+                font: { bold: true, sz: 18, color: { rgb: 'FFFFFF' } },
+                fill: { fgColor: { rgb: '17365D' } },
+                alignment: { horizontal: 'center', vertical: 'center' }
+            });
+            estilizarRango(resumenWs, 'A4:B4', {
+                font: { bold: true, color: { rgb: 'FFFFFF' } },
+                fill: { fgColor: { rgb: '1F4E78' } },
+                alignment: { horizontal: 'center' }
+            });
+            estilizarRango(resumenWs, 'A10:C10', {
+                font: { bold: true, color: { rgb: 'FFFFFF' } },
+                fill: { fgColor: { rgb: '1F4E78' } },
+                alignment: { horizontal: 'center' }
+            });
+            if (resumenWs['B8']) resumenWs['B8'].z = '0%';
+            for (let row = 11; row <= resumen.length; row++) {
+                const cumplimientoCell = `B${row}`;
+                if (resumenWs[cumplimientoCell]) resumenWs[cumplimientoCell].z = '0%';
+                estilizarRango(resumenWs, `A${row}:C${row}`, {
+                    border: { bottom: { style: 'thin', color: { rgb: 'D9E2F3' } } }
+                });
+                aplicarEstiloCelda(resumenWs, cumplimientoCell, Object.assign({
+                    alignment: { horizontal: 'center' }
+                }, estiloEstado(resumenWs[cumplimientoCell]?.v || 0)));
+            }
+
+            const datos = construirDatosExportacion();
+            const worksheet = XLSX.utils.aoa_to_sheet(datos);
+
+            worksheet['!cols'] = datos[0].map((_, colIdx) => {
+                const maxLen = Math.max(...datos.map(row => String(row[colIdx] ?? '').length));
+                return { wch: Math.min(Math.max(maxLen + 2, colIdx === 0 ? 18 : 12), 35) };
+            });
+            worksheet['!autofilter'] = { ref: worksheet['!ref'] };
+
+            const rango = XLSX.utils.decode_range(worksheet['!ref']);
+            estilizarRango(worksheet, XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: 0, c: rango.e.c } }), {
+                font: { bold: true, color: { rgb: 'FFFFFF' } },
+                fill: { fgColor: { rgb: '17365D' } },
+                alignment: { horizontal: 'center', vertical: 'center', wrapText: true }
+            });
+
+            for (let row = 1; row <= rango.e.r; row++) {
+                const cellAddress = XLSX.utils.encode_cell({ r: row, c: rango.e.c });
+                if (worksheet[cellAddress]) {
+                    const valor = parseFloat(String(worksheet[cellAddress].v).replace('%', ''));
+                    worksheet[cellAddress].v = Number.isFinite(valor) ? valor / 100 : 0;
+                    worksheet[cellAddress].t = 'n';
+                    worksheet[cellAddress].z = '0%';
+                    aplicarEstiloCelda(worksheet, cellAddress, Object.assign({
+                        alignment: { horizontal: 'center' }
+                    }, estiloEstado(worksheet[cellAddress].v)));
+                }
+
+                for (let col = 0; col <= rango.e.c; col++) {
+                    const address = XLSX.utils.encode_cell({ r: row, c: col });
+                    aplicarEstiloCelda(worksheet, address, {
+                        border: {
+                            top: { style: 'thin', color: { rgb: 'D9E2F3' } },
+                            bottom: { style: 'thin', color: { rgb: 'D9E2F3' } },
+                            left: { style: 'thin', color: { rgb: 'D9E2F3' } },
+                            right: { style: 'thin', color: { rgb: 'D9E2F3' } }
+                        },
+                        alignment: { horizontal: col === 0 ? 'left' : 'center', vertical: 'center' }
+                    });
+                    if (col > 0 && col < rango.e.c && worksheet[address]?.v) {
+                        aplicarEstiloCelda(worksheet, address, {
+                            fill: { fgColor: { rgb: 'E2F0D9' } },
+                            font: { color: { rgb: '176B2C' }, bold: true }
+                        });
+                    }
+                }
+            }
+
+            XLSX.utils.book_append_sheet(workbook, resumenWs, limpiarNombreHoja('Resumen'));
+            XLSX.utils.book_append_sheet(workbook, worksheet, limpiarNombreHoja('Detalle'));
+            XLSX.writeFile(workbook, `metricas-${fecha}.xlsx`, { bookType: 'xlsx', compression: true });
+        }
+
+        function exportarCSV() {
+            const csv = '\uFEFF' + construirDatosExportacion()
+                .map(fila => fila.map(escaparCsv).join(','))
+                .join('\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+            descargarBlob(blob, `metricas-importar-${new Date().toISOString().split('T')[0]}.csv`);
+        }
+
+        function exportarPDF() {
+            if (typeof html2pdf === 'undefined') {
+                alert('No se pudo cargar la libreria PDF. Revisa tu conexion a internet e intenta de nuevo.');
+                return;
+            }
+
+            const contenedor = document.createElement('div');
+            contenedor.id = 'pdfContentFixed';
+            contenedor.style.position = 'fixed';
+            contenedor.style.left = '0';
+            contenedor.style.top = '0';
+            contenedor.style.width = '1100px';
+            contenedor.style.background = '#ffffff';
+            contenedor.style.color = '#111111';
+            contenedor.style.zIndex = '99999';
+            contenedor.style.pointerEvents = 'none';
+            contenedor.innerHTML = `
+                <div style="padding: 20px; background: white; color: #111; font-family: Arial, sans-serif;">
+                    <h2 style="text-align: center; margin: 0 0 16px 0;">Control de Metricas - ${new Date().toLocaleDateString('es-ES')}</h2>
+                    <table style="border-collapse: collapse; width: 100%; font-size: 11px;">
+                        <thead>
+                            <tr style="background-color: #1e88e5; color: white;">
+                                <th style="border: 1px solid #999; padding: 7px; text-align: left;">Supervisor</th>
+                                ${tareas.map(t => `<th style="border: 1px solid #999; padding: 7px; text-align: center;">${t.nombre}</th>`).join('')}
+                                <th style="border: 1px solid #999; padding: 7px; text-align: center;">%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${supervisores.map(sup => {
+                                const cumplimiento = calcularCumplimiento(sup);
+                                const bgColor = cumplimiento === 100 ? '#c8e6c9' : cumplimiento >= 80 ? '#fff9c4' : '#ffcdd2';
+                                return `<tr>
+                                    <td style="border: 1px solid #ddd; padding: 7px;">${sup}</td>
+                                    ${tareas.map(t => `<td style="border: 1px solid #ddd; padding: 7px; text-align: center;">${entregas[`${sup}-${t.id}`] ? '✓' : ''}</td>`).join('')}
+                                    <td style="border: 1px solid #ddd; padding: 7px; text-align: center; background-color: ${bgColor}; font-weight: bold;">${cumplimiento}%</td>
+                                </tr>`;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            document.body.appendChild(contenedor);
+
+            const opciones = {
+                margin: 5,
+                filename: `metricas-${new Date().toISOString().split('T')[0]}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, logging: false, backgroundColor: '#ffffff' },
+                jsPDF: { orientation: 'landscape', unit: 'mm', format: 'a4' }
+            };
+
+            html2pdf().set(opciones).from(contenedor).save()
+                .catch(error => {
+                    console.error(error);
+                    alert('No se pudo generar el PDF. Revisa tu conexion e intenta de nuevo.');
+                })
+                .finally(() => {
+                    document.body.removeChild(contenedor);
+                });
+        }
+
+        function aplicarEstiloCelda(ws, address, style) {
+            if (!ws[address]) ws[address] = { t: 's', v: '' };
+            ws[address].s = Object.assign({}, ws[address].s || {}, style);
+        }
+
+        function estilizarRango(ws, rangeRef, style) {
+            const range = XLSX.utils.decode_range(rangeRef);
+            for (let row = range.s.r; row <= range.e.r; row++) {
+                for (let col = range.s.c; col <= range.e.c; col++) {
+                    aplicarEstiloCelda(ws, XLSX.utils.encode_cell({ r: row, c: col }), style);
+                }
+            }
+        }
+
+        function estiloEstado(cumplimiento) {
+            if (cumplimiento === 1) return { fill: { fgColor: { rgb: 'D9EAD3' } }, font: { color: { rgb: '176B2C' }, bold: true } };
+            if (cumplimiento >= 0.8) return { fill: { fgColor: { rgb: 'FFF2CC' } }, font: { color: { rgb: '7F6000' }, bold: true } };
+            return { fill: { fgColor: { rgb: 'F4CCCC' } }, font: { color: { rgb: '990000' }, bold: true } };
         }
 
         // Resetear mes
