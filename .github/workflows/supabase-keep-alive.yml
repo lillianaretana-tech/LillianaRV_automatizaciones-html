@@ -1,0 +1,30 @@
+name: Supabase Keep-Alive
+
+# Mantiene el proyecto de Supabase activo haciendo una consulta real
+# a la base de datos. Supabase pausa proyectos del plan gratuito
+# después de 7 días sin actividad — esto corre 2 veces por semana
+# para que nunca se acerque a ese límite.
+
+on:
+  schedule:
+    - cron: '0 12 * * 1,4'   # Lunes y jueves, 12:00 UTC (6:00 am hora CR)
+  workflow_dispatch:          # Permite ejecutarlo manualmente desde GitHub
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consultar Supabase (mantener activo)
+        run: |
+          HTTP_STATUS=$(curl -s -o /tmp/response.json -w "%{http_code}" \
+            "https://lipkgzneyweiyjoanrcm.supabase.co/rest/v1/sbm_control_state?select=id&limit=1" \
+            -H "apikey: sb_publishable_z5RxIO2RbVPaBvvh0GYpOQ_obEe_F8I" \
+            -H "Authorization: Bearer sb_publishable_z5RxIO2RbVPaBvvh0GYpOQ_obEe_F8I")
+          echo "Código de respuesta HTTP: $HTTP_STATUS"
+          cat /tmp/response.json
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
+            echo "✅ Supabase respondió correctamente — proyecto activo."
+          else
+            echo "⚠️ Supabase respondió con un error. Revisar manualmente."
+            exit 1
+          fi
