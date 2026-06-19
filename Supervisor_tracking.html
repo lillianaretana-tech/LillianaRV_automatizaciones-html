@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Métricas - Supervisores</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -576,6 +578,7 @@
         <div class="actions-bar">
             <button class="action-btn" id="exportarBtn">📊 Exportar Excel</button>
             <button class="action-btn" id="exportarCSVBtn">📋 Exportar para Importar</button>
+            <button class="action-btn" id="exportarPDFBtn">📄 Exportar PDF</button>
             <button class="action-btn" id="copiarTextoBtn">📋 Copiar Datos en Texto</button>
             <button class="action-btn" id="importarBtn">📥 Importar Archivo</button>
             <button class="action-btn" onclick="document.getElementById('modalImportarTexto').classList.remove('hidden'); document.getElementById('modalImportarTexto').style.display='flex';">📥 Importar Texto</button>
@@ -617,6 +620,12 @@
     </div>
 
     <script>
+        // Supabase config - DESHABILITADO POR AHORA
+        // const SUPABASE_URL = 'https://zmhrzmowgargjzctywva.supabase.co';
+        // const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InptaHJ6bW93Z2FyZ2p6Y3R5d3ZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4ODQzMzksImV4cCI6MjA5NzQ2MDMzOX0.zlVjBbZcbOtEyNtf3Pc-UFnguUF-3deFPsW0YSvPBzg';
+        // const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        // const usarSupabase = true;
+        
         // Estado
         let supervisores = JSON.parse(localStorage.getItem('supervisores')) || ['Juan Rodríguez', 'María López', 'Carlos Díaz'];
         let tareas = JSON.parse(localStorage.getItem('tareas')) || [
@@ -986,6 +995,19 @@ td { background-color: #f9f9f9; }
             link.click();
         }
 
+        // Exportar PDF
+        function exportarPDF() {
+            const elemento = document.querySelector('.table-wrapper table');
+            const opciones = {
+                margin: 10,
+                filename: `metricas-${new Date().toISOString().split('T')[0]}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { orientation: 'landscape', unit: 'mm', format: 'a4' }
+            };
+            html2pdf().set(opciones).from(elemento).save();
+        }
+
         // Resetear mes
         function resetearMes() {
             if (confirm('¿Confirmas que quieres resetear el mes? Se guardará automáticamente el resumen.')) {
@@ -1015,7 +1037,8 @@ td { background-color: #f9f9f9; }
         // Exportar CSV
         document.getElementById('exportarCSVBtn').addEventListener('click', exportarCSV);
 
-        // Copiar datos en texto
+        // Exportar PDF
+        document.getElementById('exportarPDFBtn').addEventListener('click', exportarPDF);
         document.getElementById('copiarTextoBtn').addEventListener('click', () => {
             const datos = [];
             const header = ['Supervisor', ...tareas.map(t => t.nombre), 'Cumplimiento %'];
