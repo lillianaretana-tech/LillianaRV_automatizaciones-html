@@ -30,6 +30,17 @@
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 10px}.stat{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:18px;padding:18px;text-align:center}.stat strong{display:block;font-family:Syne,sans-serif;font-size:1.65rem;color:var(--accent)}.stat span{font-size:.85rem;color:var(--muted)}
     section{padding:52px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:20px}.section-head h2{font-family:Syne,sans-serif;font-size:clamp(1.7rem,3vw,2.6rem)}.section-head p{color:var(--muted);max-width:620px}
     .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.filter{border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);padding:9px 13px;border-radius:999px;font-weight:700;font-size:.86rem;cursor:pointer}.filter.active{background:rgba(0,229,192,.14);border-color:rgba(0,229,192,.35);color:var(--accent)}
+    .search-box{position:relative;margin-bottom:18px;max-width:480px}
+    .search-box input{width:100%;padding:14px 44px 14px 46px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);font-family:Figtree,sans-serif;font-size:1rem;outline:none;transition:border-color .2s,background .2s}
+    .search-box input:focus{border-color:rgba(0,229,192,.4);background:rgba(255,255,255,.07)}
+    .search-box input::placeholder{color:var(--muted)}
+    .search-box .ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:1.05rem}
+    .search-box .clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:none;color:var(--muted);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.95rem;display:none;align-items:center;justify-content:center}
+    .search-box .clear.show{display:flex}
+    .search-box .clear:hover{background:rgba(255,255,255,.16);color:var(--text)}
+    .no-results{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted)}
+    .no-results strong{display:block;color:var(--text);font-size:1.1rem;margin-bottom:6px;font-family:Syne,sans-serif}
+    .results-count{color:var(--muted);font-size:.85rem;margin:-6px 0 18px}.results-count strong{color:var(--accent)}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:linear-gradient(180deg,rgba(16,38,60,.88),rgba(11,26,43,.88));border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:245px}.tag{font-size:.78rem;color:var(--accent);font-weight:800;margin-bottom:10px}.card h3{font-family:Syne,sans-serif;font-size:1.22rem;margin-bottom:8px}.card p{color:var(--muted);font-size:.95rem;margin-bottom:14px;flex:1}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}.chip{font-size:.73rem;border:1px solid var(--line);color:#b9cbe0;border-radius:999px;padding:5px 8px;background:rgba(255,255,255,.04)}.open{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;padding:11px 13px;background:rgba(0,229,192,.12);border:1px solid rgba(0,229,192,.26);color:var(--accent);font-weight:900}.open:hover{background:rgba(0,229,192,.18)}
     .process{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:20px;padding:20px}.step b{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#061421;margin-bottom:10px}.step h3{font-family:Syne,sans-serif;margin-bottom:6px}.step p{color:var(--muted);font-size:.95rem}
     footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);text-align:center}
@@ -61,7 +72,7 @@
       <a class="btn" href="#servicios">Cómo puedo ayudarte</a>
     </div>
     <div class="stats">
-      <div class="stat"><strong>24</strong><span>herramientas HTML</span></div>
+      <div class="stat"><strong>34</strong><span>herramientas HTML</span></div>
       <div class="stat"><strong>5</strong><span>áreas de solución</span></div>
       <div class="stat"><strong>100%</strong><span>usable desde navegador</span></div>
       <div class="stat"><strong>0</strong><span>instalación compleja</span></div>
@@ -150,6 +161,12 @@
         <p>Selecciona una categoría o abre directamente cada app. Para que los botones funcionen en GitHub Pages, todos los archivos HTML deben estar en la misma carpeta que esta página.</p>
       </div>
     </div>
+    <div class="search-box">
+      <span class="ico">🔍</span>
+      <input type="text" id="searchInput" placeholder="Buscar herramienta por nombre, etiqueta o descripción..." oninput="onSearch()">
+      <button class="clear" id="clearBtn" onclick="clearSearch()">✕</button>
+    </div>
+    <div class="results-count" id="resultsCount" style="display:none"></div>
     <div class="filters" id="filters"></div>
     <div class="grid" id="cards"></div>
   </section>
@@ -200,6 +217,8 @@ const tools = [
   {cat:'Operaciones', icon:'📊', title:'Supervisor Tracking — Control de Métricas', file:'Supervisor_tracking.html', desc:'Sistema visual para seguimiento de entregas, cumplimiento y métricas de supervisores con alertas e histórico.', tags:['Supervisión','Dashboard','Métricas']},
   {cat:'Operaciones', icon:'📦', title:'SBM Inventario', file:'https://lillianaretana-tech.github.io/sbm-inventario/', desc:'Sistema digital para control de inventario, seguimiento de activos y organización operativa de suministros.', tags:['Inventario','Control','Operaciones']},
   {cat:'Operaciones', icon:'📋', title:'SBM Pedido Mensual', file:'https://lillianaretana-tech.github.io/SBM_Pedido_Mensual/', desc:'Sistema para gestión y control de pedidos mensuales de suministros, facilitando la planificación y seguimiento de requerimientos operativos.', tags:['Pedidos','Inventario','Operaciones']},
+  {cat:'Operaciones', icon:'📦', title:'Pedido Mensual Cliente', file:'https://lillianaretana-tech.github.io/Pedido_mensual_cliente/', desc:'Sistema para gestión de pedidos mensuales orientado a clientes, con seguimiento de solicitudes y control de requerimientos.', tags:['Pedidos','Clientes','Operaciones']},
+  {cat:'Operaciones', icon:'🕐', title:'Control de Asistencia', file:'https://lillianaretana-tech.github.io/Control_asistencia_Codex/', desc:'Sistema de control de asistencia con verificación de ubicación GPS para seguimiento de ingreso y salida del personal.', tags:['Asistencia','GPS','RRHH','Supabase']},
   {cat:'Operaciones', icon:'🛡️', title:'GoodCatches', file:'https://lillianaretana-tech.github.io/GoodCatches/', desc:'Plataforma para gestión de Good Catches, identificación temprana de riesgos y fortalecimiento de la cultura de seguridad en el lugar de trabajo.', tags:['Seguridad','Riesgos','Good Catch','EHS']},
   {cat:'Cotizadores', icon:'🏗️', title:'3Rs Cotizador', file:'3Rs Cotizador.html', desc:'Cotizador para remodelaciones y trabajos de construcción.', tags:['Cotización','Construcción','Ventas']},
   {cat:'Cotizadores', icon:'🧱', title:'Rommel Pro — Asistente de Obras', file:'Rommel_cotizador_personal.html', desc:'Asistente para presupuestos, materiales y gestión básica de obras.', tags:['Obras','Cotizador','Móvil']},
@@ -232,11 +251,36 @@ const tools = [
 ];
 const cats = ['Todas', ...new Set(tools.map(t=>t.cat))];
 let current = 'Todas';
+let searchTerm = '';
+
 function renderFilters(){
   document.getElementById('filters').innerHTML = cats.map(c=>`<button class="filter ${c===current?'active':''}" onclick="setCat('${c}')">${c}</button>`).join('');
 }
+
+function matchesSearch(t, q){
+  if(!q) return true;
+  const hay = (t.title+' '+t.desc+' '+t.cat+' '+t.tags.join(' ')).toLowerCase();
+  return hay.includes(q);
+}
+
 function renderCards(){
-  const data = current==='Todas' ? tools : tools.filter(t=>t.cat===current);
+  const q = searchTerm.trim().toLowerCase();
+  let data = current==='Todas' ? tools : tools.filter(t=>t.cat===current);
+  data = data.filter(t=>matchesSearch(t,q));
+
+  const countEl = document.getElementById('resultsCount');
+  if(q){
+    countEl.style.display='block';
+    countEl.innerHTML = `<strong>${data.length}</strong> resultado${data.length===1?'':'s'} para "${searchTerm.trim()}"`;
+  } else {
+    countEl.style.display='none';
+  }
+
+  if(!data.length){
+    document.getElementById('cards').innerHTML = `<div class="no-results"><strong>😕 Sin resultados</strong>Intenta con otra palabra clave o revisa otra categoría.</div>`;
+    return;
+  }
+
   document.getElementById('cards').innerHTML = data.map(t=>`
     <article class="card">
       <div class="tag">${t.icon} ${t.cat}</div>
@@ -246,7 +290,22 @@ function renderCards(){
       <a class="open" href="${encodeURI(t.file)}" target="_blank" rel="noopener">Abrir herramienta →</a>
     </article>`).join('');
 }
+
 function setCat(c){current=c;renderFilters();renderCards();}
+
+function onSearch(){
+  searchTerm = document.getElementById('searchInput').value;
+  document.getElementById('clearBtn').classList.toggle('show', searchTerm.length>0);
+  renderCards();
+}
+
+function clearSearch(){
+  searchTerm='';
+  document.getElementById('searchInput').value='';
+  document.getElementById('clearBtn').classList.remove('show');
+  renderCards();
+}
+
 renderFilters();renderCards();
 </script>
 </body>
