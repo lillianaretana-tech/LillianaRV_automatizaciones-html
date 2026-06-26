@@ -87,7 +87,8 @@ jobs:
           HTTP_STATUS=$(curl -s -o /tmp/response.json -w "%{http_code}" \
             "${{ matrix.project.url }}/rest/v1/" \
             -H "apikey: ${{ matrix.project.key }}" \
-            -H "Authorization: Bearer ${{ matrix.project.key }}")
+            -H "Authorization: Bearer ${{ matrix.project.key }}" \
+            -H "Accept: application/openapi+json")
           echo "Proyecto: ${{ matrix.project.name }}"
           echo "Código de respuesta HTTP: $HTTP_STATUS"
           if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
