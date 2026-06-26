@@ -2,11 +2,12 @@ name: Supabase Keep-Alive (Todos los Proyectos)
 
 # Mantiene activos TODOS los proyectos de Supabase de Lilliana Retana Tech.
 # Supabase pausa proyectos del plan gratuito después de 7 días sin actividad.
-# Este workflow hace una consulta real a cada proyecto, 2 veces por semana,
-# para que ninguno se acerque jamás a ese límite.
+# Este workflow consulta una TABLA REAL de cada proyecto (no la raíz genérica,
+# que requiere permisos de administrador), 2 veces por semana.
 #
 # Para AGREGAR un proyecto nuevo: copie un bloque "- name:" dentro de la
-# matriz de abajo y cambie nombre, url y key.
+# matriz de abajo y cambie nombre, url, key y table (nombre de cualquier
+# tabla real que exista en ese proyecto).
 # Para QUITAR uno: borre su bloque correspondiente.
 
 on:
@@ -24,72 +25,72 @@ jobs:
           - name: "Vacaciones (Control vacaciones)"
             url: "https://ihajshxnmakyobcubqlq.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYWpzaHhubWFreW9iY3VicWxxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE5ODMsImV4cCI6MjA5Nzk5Nzk4M30.J-A_GQW2TrZjJje_h9UZ-GvlzLV7fSuY8VDh-8dJXs8"
+            table: "sbm_control_state"
 
           - name: "Bruno conversación"
             url: "https://lpqqrnhcyxbjwdlljxje.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwcXFybmhjeXhiandkbGxqeGplIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExMjc2NzcsImV4cCI6MjA5NjcwMzY3N30._JSpGYaA0BLKhMzKZufocKBLFpghKV2oieLHQJdME7Q"
+            table: "bruno_messages"
 
           - name: "Control gerencial"
             url: "https://vrtfiqkjdspzikuxbzsf.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydGZpcWtqZHNwemlrdXhienNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzNjEzNzgsImV4cCI6MjA5NTkzNzM3OH0.K5_JwGiJRY_N0IFa44QLqyhZUekxHGTLQYL4w2nHko0"
+            table: "projects"
 
           - name: "Wordyssey V Claude"
             url: "https://zwbhvuydslwwxobovchh.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3Ymh2dXlkc2x3d3hvYm92Y2hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNjE5NjgsImV4cCI6MjA5NjkzNzk2OH0.8U7d_dsBrfHQNKqox0BMfcPCi7KT_msUf9UOwlCo3IY"
+            table: "wordyssey_v2_profiles"
 
           - name: "Métricas JR"
             url: "https://zmhrzmowgargjzctywva.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InptaHJ6bW93Z2FyZ2p6Y3R5d3ZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4ODQzMzksImV4cCI6MjA5NzQ2MDMzOX0.zlVjBbZcbOtEyNtf3Pc-UFnguUF-3deFPsW0YSvPBzg"
-
-          - name: "LillyTech"
-            url: "https://vtbqplzhyhboiindyind.supabase.co"
-            key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ0YnFwbHpoeWhib2lpbmR5aW5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5MDkzMzcsImV4cCI6MjA5NzQ4NTMzN30.YVhDdTBrZPj5N528D7yqH8NQmQP1RbrY8OEzJEHYS7o"
-
-          - name: "SBM Inducción"
-            url: "https://ihxsucijavtmpuaepvuo.supabase.co"
-            key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloeHN1Y2lqYXZ0bXB1YWVwdnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMzYzOTIsImV4cCI6MjA5NzgxMjM5Mn0.jmpJnZ32zerkXXNs43WaXeg_8feZT3bdj70odBuCdI4"
+            table: "metricas"
 
           - name: "Limpiando Ojos"
             url: "https://uamyglxdzmdrwjdfscvg.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhbXlnbHhkem1kcndqZGZzY3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxNjc2MDMsImV4cCI6MjA5Nzc0MzYwM30.VN40WYlbouiBJNAPwAA60ZZmudbtM5DG4JgPaepSDs8"
+            table: "progress"
 
           - name: "Curso IA aplicado al work"
             url: "https://jslcmzrbonurhsdzuwyx.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzbGNtenJib251cmhzZHp1d3l4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NDUyMTEsImV4cCI6MjA5NzAyMTIxMX0.QTjZfJlxaYiY1CxJWbKbCyFwL--kxbDpVRzwxsCDGwc"
+            table: "app_learners"
 
           - name: "Cleanroom"
             url: "https://jrxbrcskgosdkjlmuaga.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpyeGJyY3NrZ29zZGtqbG11YWdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzMzkzMjAsImV4cCI6MjA5NzkxNTMyMH0.-_f-BLnhJ74R44L4cXDxE5Qf5JEIdAw34yN2W_na1Vo"
+            table: "certificados"
 
           - name: "Asistente Lilly MAKE"
             url: "https://zffoeynafhpqqmpeorbh.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmZm9leW5hZmhwcXFtcGVvcmJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjIyNDksImV4cCI6MjA5Nzk5ODI0OX0.7Hl-xcq5jLMluTbDUuppZFnHxEcL_OkLu83TXonZeJ4"
-
-          - name: "Métricas John para LRV"
-            url: "https://tkukvczyaljdtpmpqukm.supabase.co"
-            key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRrdWt2Y3p5YWxqZHRwbXBxdWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4ODgwNDEsImV4cCI6MjA5NzQ2NDA0MX0.EeLGI2kuHjnf7b4B90pfVsVCaMyjKvCCIw-lDm2tfcY"
+            table: "email_watch_log"
 
           - name: "Asistencia Codex"
             url: "https://nkxaudxuyftuevspbrki.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5reGF1ZHh1eWZ0dWV2c3BicmtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NDEzNDQsImV4cCI6MjA5NzIxNzM0NH0.yS5eaMaDaAstDz8suK_nGFlfzgXNjOxkvW_AjVWTo-c"
+            table: "alert_deliveries"
 
           - name: "Pedido mensual"
             url: "https://dkpobswmpzxbgzsmraub.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcG9ic3dtcHp4Ymd6c21yYXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwMDU0OTUsImV4cCI6MjA5NTU4MTQ5NX0.Uu9p94XbE8VCOl_8zY7c4fLEJ0x8fVciIXI2B0IJYLY"
+            table: "pedidos"
 
           - name: "Inventario"
             url: "https://exuhbfsasoboxmksomar.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4dWhiZnNhc29ib3hta3NvbWFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4Mjk4NjYsImV4cCI6MjA5NTQwNTg2Nn0.Ao8l3NUkHxiDwWmK-GMpsBHgoQalFemb4Lf08yIyz4I"
+            table: "movements"
 
     steps:
       - name: Consultar ${{ matrix.project.name }}
         run: |
           HTTP_STATUS=$(curl -s -o /tmp/response.json -w "%{http_code}" \
-            "${{ matrix.project.url }}/rest/v1/" \
+            "${{ matrix.project.url }}/rest/v1/${{ matrix.project.table }}?select=*&limit=1" \
             -H "apikey: ${{ matrix.project.key }}" \
-            -H "Authorization: Bearer ${{ matrix.project.key }}" \
-            -H "Accept: application/openapi+json")
+            -H "Authorization: Bearer ${{ matrix.project.key }}")
           echo "Proyecto: ${{ matrix.project.name }}"
+          echo "Tabla consultada: ${{ matrix.project.table }}"
           echo "Código de respuesta HTTP: $HTTP_STATUS"
           if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
             echo "✅ Proyecto activo y respondiendo correctamente."
