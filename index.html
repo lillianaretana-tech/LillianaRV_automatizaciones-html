@@ -3,83 +3,475 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lilliana Retana | Automatizaciones y Apps HTML</title>
-  <meta name="description" content="Portal de herramientas HTML, automatizaciones, cotizadores, controles operativos y soluciones digitales creadas por Lilliana Retana." />
+  <title>Lilliana Retana Tech | Portal de Apps y Ecosistemas Digitales</title>
+  <meta name="description" content="Portal de apps, academias, automatizaciones, asistentes IA, controles operativos y soluciones digitales creadas por Lilliana Retana Tech." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#07111d;--bg2:#0d1e31;--card:#10263c;--card2:#0b1a2b;--line:rgba(255,255,255,.11);
-      --text:#edf7ff;--muted:#9ab2c7;--accent:#00e5c0;--blue:#4da3ff;--orange:#ff8a3d;--green:#55e08c;
-      --shadow:0 18px 55px rgba(0,0,0,.28);--r:22px;
+      --bg:#07111d;
+      --bg2:#0d1e31;
+      --card:#10263c;
+      --card2:#0b1a2b;
+      --line:rgba(255,255,255,.11);
+      --text:#edf7ff;
+      --muted:#9ab2c7;
+      --accent:#00e5c0;
+      --blue:#4da3ff;
+      --orange:#ff8a3d;
+      --green:#55e08c;
+      --purple:#b58cff;
+      --shadow:0 18px 55px rgba(0,0,0,.28);
+      --r:22px;
     }
+
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
-    body{font-family:Figtree,system-ui,sans-serif;background:radial-gradient(circle at 10% 0%,rgba(0,229,192,.12),transparent 35%),radial-gradient(circle at 90% 10%,rgba(77,163,255,.14),transparent 38%),var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
-    body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:54px 54px;pointer-events:none}
+    body{
+      font-family:Figtree,system-ui,sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%,rgba(0,229,192,.12),transparent 35%),
+        radial-gradient(circle at 90% 10%,rgba(77,163,255,.14),transparent 38%),
+        radial-gradient(circle at 50% 100%,rgba(181,140,255,.08),transparent 35%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      min-height:100vh;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size:54px 54px;
+      pointer-events:none;
+    }
+
     a{color:inherit;text-decoration:none}
     .wrap{width:min(1180px,calc(100% - 32px));margin:auto;position:relative;z-index:1}
-    header{padding:28px 0 18px;position:sticky;top:0;background:rgba(7,17,29,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:10}
+
+    header{
+      padding:28px 0 18px;
+      position:sticky;
+      top:0;
+      background:rgba(7,17,29,.88);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+      z-index:10;
+    }
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{font-family:Syne,sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:.02em}.brand span{color:var(--accent)}
-    .navlinks{display:flex;gap:10px;flex-wrap:wrap}.navlinks a{font-size:.88rem;color:var(--muted);padding:8px 12px;border:1px solid transparent;border-radius:999px}.navlinks a:hover{border-color:var(--line);color:var(--text);background:rgba(255,255,255,.04)}
-    .hero{padding:70px 0 44px;text-align:center}.eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--accent);border:1px solid rgba(0,229,192,.22);background:rgba(0,229,192,.08);padding:7px 14px;border-radius:999px;font-weight:700;font-size:.82rem;margin-bottom:18px}
-    h1{font-family:Syne,sans-serif;font-size:clamp(2.2rem,6vw,5rem);line-height:1.02;letter-spacing:-.05em;max-width:940px;margin:0 auto 18px}.hero p{color:var(--muted);font-size:clamp(1rem,2vw,1.25rem);max-width:780px;margin:0 auto 26px}
-    .cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:13px 18px;font-weight:800;border:1px solid var(--line);background:rgba(255,255,255,.06)}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--blue));color:#04111c;border:none}.btn:hover{transform:translateY(-1px)}
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 10px}.stat{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:18px;padding:18px;text-align:center}.stat strong{display:block;font-family:Syne,sans-serif;font-size:1.65rem;color:var(--accent)}.stat span{font-size:.85rem;color:var(--muted)}
-    section{padding:52px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:20px}.section-head h2{font-family:Syne,sans-serif;font-size:clamp(1.7rem,3vw,2.6rem)}.section-head p{color:var(--muted);max-width:620px}
-    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.filter{border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);padding:9px 13px;border-radius:999px;font-weight:700;font-size:.86rem;cursor:pointer}.filter.active{background:rgba(0,229,192,.14);border-color:rgba(0,229,192,.35);color:var(--accent)}
-    .search-box{position:relative;margin-bottom:18px;max-width:480px}
-    .search-box input{width:100%;padding:14px 44px 14px 46px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);font-family:Figtree,sans-serif;font-size:1rem;outline:none;transition:border-color .2s,background .2s}
-    .search-box input:focus{border-color:rgba(0,229,192,.4);background:rgba(255,255,255,.07)}
+    .brand{
+      font-family:Syne,sans-serif;
+      font-weight:800;
+      font-size:1.1rem;
+      letter-spacing:.02em;
+    }
+    .brand span{color:var(--accent)}
+    .navlinks{display:flex;gap:10px;flex-wrap:wrap}
+    .navlinks a{
+      font-size:.88rem;
+      color:var(--muted);
+      padding:8px 12px;
+      border:1px solid transparent;
+      border-radius:999px;
+    }
+    .navlinks a:hover{
+      border-color:var(--line);
+      color:var(--text);
+      background:rgba(255,255,255,.04);
+    }
+
+    .hero{padding:70px 0 44px;text-align:center}
+    .eyebrow{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      color:var(--accent);
+      border:1px solid rgba(0,229,192,.22);
+      background:rgba(0,229,192,.08);
+      padding:7px 14px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:.82rem;
+      margin-bottom:18px;
+    }
+    h1{
+      font-family:Syne,sans-serif;
+      font-size:clamp(2.2rem,6vw,5rem);
+      line-height:1.02;
+      letter-spacing:-.05em;
+      max-width:980px;
+      margin:0 auto 18px;
+    }
+    .hero p{
+      color:var(--muted);
+      font-size:clamp(1rem,2vw,1.25rem);
+      max-width:810px;
+      margin:0 auto 26px;
+    }
+
+    .cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      border-radius:999px;
+      padding:13px 18px;
+      font-weight:800;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      transition:.2s ease;
+    }
+    .btn.primary{
+      background:linear-gradient(135deg,var(--accent),var(--blue));
+      color:#04111c;
+      border:none;
+    }
+    .btn:hover{transform:translateY(-1px)}
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin:26px 0 10px;
+    }
+    .stat{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.045);
+      border-radius:18px;
+      padding:18px;
+      text-align:center;
+    }
+    .stat strong{
+      display:block;
+      font-family:Syne,sans-serif;
+      font-size:1.65rem;
+      color:var(--accent);
+    }
+    .stat span{font-size:.85rem;color:var(--muted)}
+
+    section{padding:52px 0}
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:20px;
+    }
+    .section-head h2{
+      font-family:Syne,sans-serif;
+      font-size:clamp(1.7rem,3vw,2.6rem);
+    }
+    .section-head p{color:var(--muted);max-width:660px}
+
+    .ecosystem-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .ecosystem{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(16,38,60,.96),rgba(11,26,43,.9));
+      border-radius:var(--r);
+      padding:22px;
+      box-shadow:var(--shadow);
+      min-height:260px;
+      display:flex;
+      flex-direction:column;
+    }
+    .ecosystem .big-icon{
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      background:rgba(0,229,192,.12);
+      border:1px solid rgba(0,229,192,.24);
+      font-size:1.4rem;
+      margin-bottom:14px;
+    }
+    .ecosystem h3{
+      font-family:Syne,sans-serif;
+      font-size:1.35rem;
+      margin-bottom:8px;
+    }
+    .ecosystem p{
+      color:var(--muted);
+      font-size:.95rem;
+      margin-bottom:14px;
+      flex:1;
+    }
+    .mini-list{
+      list-style:none;
+      display:grid;
+      gap:7px;
+      margin-bottom:16px;
+    }
+    .mini-list li{
+      color:#c9d8e6;
+      font-size:.88rem;
+      padding-left:18px;
+      position:relative;
+    }
+    .mini-list li:before{
+      content:"•";
+      position:absolute;
+      left:2px;
+      color:var(--accent);
+    }
+
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+    .filter{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.045);
+      color:var(--text);
+      padding:9px 13px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:.86rem;
+      cursor:pointer;
+    }
+    .filter.active{
+      background:rgba(0,229,192,.14);
+      border-color:rgba(0,229,192,.35);
+      color:var(--accent);
+    }
+
+    .search-box{position:relative;margin-bottom:18px;max-width:520px}
+    .search-box input{
+      width:100%;
+      padding:14px 44px 14px 46px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.045);
+      color:var(--text);
+      font-family:Figtree,sans-serif;
+      font-size:1rem;
+      outline:none;
+      transition:border-color .2s,background .2s;
+    }
+    .search-box input:focus{
+      border-color:rgba(0,229,192,.4);
+      background:rgba(255,255,255,.07);
+    }
     .search-box input::placeholder{color:var(--muted)}
-    .search-box .ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:1.05rem}
-    .search-box .clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:none;color:var(--muted);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.95rem;display:none;align-items:center;justify-content:center}
+    .search-box .ico{
+      position:absolute;
+      left:16px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+      pointer-events:none;
+      font-size:1.05rem;
+    }
+    .search-box .clear{
+      position:absolute;
+      right:10px;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(255,255,255,.08);
+      border:none;
+      color:var(--muted);
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:.95rem;
+      display:none;
+      align-items:center;
+      justify-content:center;
+    }
     .search-box .clear.show{display:flex}
     .search-box .clear:hover{background:rgba(255,255,255,.16);color:var(--text)}
-    .no-results{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted)}
-    .no-results strong{display:block;color:var(--text);font-size:1.1rem;margin-bottom:6px;font-family:Syne,sans-serif}
-    .results-count{color:var(--muted);font-size:.85rem;margin:-6px 0 18px}.results-count strong{color:var(--accent)}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:linear-gradient(180deg,rgba(16,38,60,.88),rgba(11,26,43,.88));border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:245px}.tag{font-size:.78rem;color:var(--accent);font-weight:800;margin-bottom:10px}.card h3{font-family:Syne,sans-serif;font-size:1.22rem;margin-bottom:8px}.card p{color:var(--muted);font-size:.95rem;margin-bottom:14px;flex:1}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}.chip{font-size:.73rem;border:1px solid var(--line);color:#b9cbe0;border-radius:999px;padding:5px 8px;background:rgba(255,255,255,.04)}.open{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;padding:11px 13px;background:rgba(0,229,192,.12);border:1px solid rgba(0,229,192,.26);color:var(--accent);font-weight:900}.open:hover{background:rgba(0,229,192,.18)}
-    .process{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:20px;padding:20px}.step b{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#061421;margin-bottom:10px}.step h3{font-family:Syne,sans-serif;margin-bottom:6px}.step p{color:var(--muted);font-size:.95rem}
-    footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);text-align:center}
-    .hide{display:none!important}
-    @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.stats,.process{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.nav{align-items:flex-start}.navlinks{justify-content:flex-end}}
-    @media(max-width:620px){.grid,.stats,.process{grid-template-columns:1fr}.hero{text-align:left;padding:44px 0 30px}.hero p{margin-left:0}.cta{justify-content:flex-start}.nav{display:block}.navlinks{margin-top:12px;justify-content:flex-start}.card{min-height:auto}}
-  </style>
 
-<!-- Corregido: enlaces reales GitHub Pages - Transformacion_360.html / Passdown / sin Operaciones_App errónea -->
+    .no-results{
+      grid-column:1/-1;
+      text-align:center;
+      padding:50px 20px;
+      color:var(--muted);
+    }
+    .no-results strong{
+      display:block;
+      color:var(--text);
+      font-size:1.1rem;
+      margin-bottom:6px;
+      font-family:Syne,sans-serif;
+    }
+    .results-count{color:var(--muted);font-size:.85rem;margin:-6px 0 18px}
+    .results-count strong{color:var(--accent)}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{
+      background:linear-gradient(180deg,rgba(16,38,60,.88),rgba(11,26,43,.88));
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      padding:20px;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      min-height:245px;
+      transition:.2s ease;
+    }
+    .card:hover{transform:translateY(-2px);border-color:rgba(0,229,192,.24)}
+    .tag{font-size:.78rem;color:var(--accent);font-weight:800;margin-bottom:10px}
+    .card h3{font-family:Syne,sans-serif;font-size:1.22rem;margin-bottom:8px}
+    .card p{color:var(--muted);font-size:.95rem;margin-bottom:14px;flex:1}
+    .chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+    .chip{
+      font-size:.73rem;
+      border:1px solid var(--line);
+      color:#b9cbe0;
+      border-radius:999px;
+      padding:5px 8px;
+      background:rgba(255,255,255,.04);
+    }
+    .open{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      padding:11px 13px;
+      background:rgba(0,229,192,.12);
+      border:1px solid rgba(0,229,192,.26);
+      color:var(--accent);
+      font-weight:900;
+    }
+    .open:hover{background:rgba(0,229,192,.18)}
+
+    .process{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .step{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.045);
+      border-radius:20px;
+      padding:20px;
+    }
+    .step b{
+      display:inline-grid;
+      place-items:center;
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      background:var(--accent);
+      color:#061421;
+      margin-bottom:10px;
+    }
+    .step h3{font-family:Syne,sans-serif;margin-bottom:6px}
+    .step p{color:var(--muted);font-size:.95rem}
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:34px 0;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    .hide{display:none!important}
+
+    @media(max-width:900px){
+      .grid,.ecosystem-grid{grid-template-columns:repeat(2,1fr)}
+      .stats,.process{grid-template-columns:repeat(2,1fr)}
+      .section-head{display:block}
+      .nav{align-items:flex-start}
+      .navlinks{justify-content:flex-end}
+    }
+
+    @media(max-width:620px){
+      .grid,.stats,.process,.ecosystem-grid{grid-template-columns:1fr}
+      .hero{text-align:left;padding:44px 0 30px}
+      .hero p{margin-left:0}
+      .cta{justify-content:flex-start}
+      .nav{display:block}
+      .navlinks{margin-top:12px;justify-content:flex-start}
+      .card{min-height:auto}
+    }
+  </style>
 </head>
+
 <body>
 <header>
   <div class="wrap nav">
     <a class="brand" href="#top">Lilliana Retana <span>Tech</span></a>
     <nav class="navlinks">
+      <a href="#ecosistemas">Ecosistemas</a>
       <a href="#herramientas">Herramientas</a>
       <a href="#servicios">Servicios</a>
       <a href="#contacto">Contacto</a>
     </nav>
   </div>
 </header>
+
 <main id="top">
   <section class="hero wrap">
-    <div class="eyebrow">⚙️ Automatizaciones · HTML · IA · Operaciones</div>
-    <h1>Soluciones digitales simples para procesos que antes tomaban horas.</h1>
-    <p>Un portal para centralizar apps, cotizadores, controles, simuladores y herramientas operativas creadas para resolver problemas reales en empresas, ventas, formación y gestión diaria.</p>
+    <div class="eyebrow">⚙️ Apps · Academias · IA · Automatización · Operaciones</div>
+    <h1>Un portal central para soluciones digitales creadas para problemas reales.</h1>
+    <p>Catálogo de apps, academias, asistentes inteligentes, controles operativos, cotizadores y herramientas prácticas desarrolladas para empresas, formación, productividad y gestión diaria.</p>
     <div class="cta">
-      <a class="btn primary" href="#herramientas">Ver herramientas</a>
-      <a class="btn" href="#servicios">Cómo puedo ayudarte</a>
+      <a class="btn primary" href="#ecosistemas">Ver ecosistemas</a>
+      <a class="btn" href="#herramientas">Ver todas las herramientas</a>
     </div>
+
     <div class="stats">
-      <div class="stat"><strong>34</strong><span>herramientas HTML</span></div>
-      <div class="stat"><strong>5</strong><span>áreas de solución</span></div>
+      <div class="stat"><strong>35+</strong><span>herramientas y productos</span></div>
+      <div class="stat"><strong>5</strong><span>ecosistemas principales</span></div>
       <div class="stat"><strong>100%</strong><span>usable desde navegador</span></div>
       <div class="stat"><strong>0</strong><span>instalación compleja</span></div>
     </div>
   </section>
 
-  
+  <section id="ecosistemas" class="wrap" style="padding-top:10px;">
+    <div class="section-head">
+      <div>
+        <h2>🌐 Ecosistemas LillyTech</h2>
+        <p>El portal ahora está organizado como catálogo de productos, no solo como lista de apps. Cada ecosistema agrupa soluciones con un objetivo claro.</p>
+      </div>
+    </div>
+
+    <div class="ecosystem-grid">
+      <article class="ecosystem">
+        <div class="big-icon">🏢</div>
+        <h3>Soluciones Empresariales</h3>
+        <p>Herramientas para control operativo, seguimiento, auditoría, asistencia, inventario, seguridad y gestión diaria.</p>
+        <ul class="mini-list">
+          <li>Control de Asistencia</li>
+          <li>SBM Inventario</li>
+          <li>FaciliDesk</li>
+          <li>GoodCatches</li>
+        </ul>
+        <a class="open" href="#herramientas" onclick="setCat('Operaciones')">Ver operaciones →</a>
+      </article>
+
+      <article class="ecosystem">
+        <div class="big-icon">🎓</div>
+        <h3>Academias</h3>
+        <p>Plataformas de formación para empresas, inglés, inteligencia artificial aplicada y capacitación profesional.</p>
+        <ul class="mini-list">
+          <li>LillyTech Facilities Academy</li>
+          <li>Cleanroom Mastery</li>
+          <li>IA para el Trabajo Real</li>
+          <li>Bruno's Wordyssey</li>
+        </ul>
+        <a class="open" href="#herramientas" onclick="setCat('Educación')">Ver academias →</a>
+      </article>
+
+      <article class="ecosystem">
+        <div class="big-icon">🤖</div>
+        <h3>IA y Asistentes</h3>
+        <p>Agentes y asistentes para apoyar tareas del hogar, docencia, creación de recursos, aprendizaje y productividad.</p>
+        <ul class="mini-list">
+          <li>Lilly — Asistente del Hogar</li>
+          <li>Asistente Docente</li>
+          <li>LillyTech Resource Builder</li>
+          <li>Open AI Tutor</li>
+        </ul>
+        <a class="open" href="#herramientas" onclick="setCat('Asistentes Inteligentes')">Ver asistentes →</a>
+      </article>
+    </div>
+  </section>
+
   <section class="wrap" style="padding-top:10px;">
     <div class="section-head">
       <div>
@@ -87,7 +479,21 @@
         <p>Herramientas con experiencia tipo app, automatización e identidad visual más avanzada.</p>
       </div>
     </div>
+
     <div class="grid">
+      <article class="card">
+        <div class="tag">🎓 Ecosistema de Capacitación</div>
+        <h3>LillyTech Facilities Academy</h3>
+        <p>Hub corporativo de capacitación que reúne Leadership Mastery, Cleanroom Mastery y futuros programas para Facility Services, manufactura, cleanrooms y operaciones.</p>
+        <div class="chips">
+          <span class="chip">Academia</span>
+          <span class="chip">Supabase</span>
+          <span class="chip">Empresas</span>
+          <span class="chip">LMS</span>
+        </div>
+        <a class="open" href="https://lillianaretana-tech.github.io/Academia_Hub/" target="_blank" rel="noopener">Abrir Academia →</a>
+      </article>
+
       <article class="card">
         <div class="tag">🏠 Asistente Inteligente</div>
         <h3>Lilly — Asistente del Hogar</h3>
@@ -98,7 +504,7 @@
           <span class="chip">Presupuesto</span>
           <span class="chip">Asistente</span>
         </div>
-        <a class="open" href="https://lillianaretana-tech.github.io/Asistente_hogar_LRV/" target="_blank">Abrir herramienta →</a>
+        <a class="open" href="https://lillianaretana-tech.github.io/Asistente_hogar_LRV/" target="_blank" rel="noopener">Abrir herramienta →</a>
       </article>
 
       <article class="card">
@@ -110,7 +516,7 @@
           <span class="chip">Tiquetes</span>
           <span class="chip">Dashboard</span>
         </div>
-        <a class="open" href="Tiquetes.html" target="_blank">Abrir herramienta →</a>
+        <a class="open" href="Tiquetes.html" target="_blank" rel="noopener">Abrir herramienta →</a>
       </article>
 
       <article class="card">
@@ -122,7 +528,7 @@
           <span class="chip">Operaciones</span>
           <span class="chip">Turnos</span>
         </div>
-        <a class="open" href="https://script.google.com/macros/s/AKfycbzuPqYT4c1ABnupU1bWBKy4LyyhQG26JMmmRZIGaa0IytEtiUsx1RmrXHmsA5Oo5DKiRQ/exec" target="_blank">Abrir Passdown →</a>
+        <a class="open" href="https://script.google.com/macros/s/AKfycbzuPqYT4c1ABnupU1bWBKy4LyyhQG26JMmmRZIGaa0IytEtiUsx1RmrXHmsA5Oo5DKiRQ/exec" target="_blank" rel="noopener">Abrir Passdown →</a>
       </article>
 
       <article class="card">
@@ -134,38 +540,38 @@
           <span class="chip">Branding</span>
           <span class="chip">Emprendimiento</span>
         </div>
-        <a class="open" href="https://lillianaretana-tech.github.io/glamour-artesanal/" target="_blank">Abrir página →</a>
+        <a class="open" href="https://lillianaretana-tech.github.io/glamour-artesanal/" target="_blank" rel="noopener">Abrir página →</a>
       </article>
 
       <article class="card">
-  <div class="tag">📈 Gestión Estratégica</div>
-  <h3>Control Gerencial</h3>
-  <p>Centro de control para seguimiento de proyectos, agenda operativa, indicadores, vencimientos, accesos rápidos y gestión estratégica de operaciones.</p>
-  <div class="chips">
-    <span class="chip">Dashboard</span>
-    <span class="chip">Proyectos</span>
-    <span class="chip">Indicadores</span>
-    <span class="chip">Gerencia</span>
-  </div>
-  <a class="open" href="https://lillianaretana-tech.github.io/ControlGerencial/" target="_blank">Abrir herramienta →</a>
-</article>
-      
+        <div class="tag">📈 Gestión Estratégica</div>
+        <h3>Control Gerencial</h3>
+        <p>Centro de control para seguimiento de proyectos, agenda operativa, indicadores, vencimientos, accesos rápidos y gestión estratégica de operaciones.</p>
+        <div class="chips">
+          <span class="chip">Dashboard</span>
+          <span class="chip">Proyectos</span>
+          <span class="chip">Indicadores</span>
+          <span class="chip">Gerencia</span>
+        </div>
+        <a class="open" href="https://lillianaretana-tech.github.io/ControlGerencial/" target="_blank" rel="noopener">Abrir herramienta →</a>
+      </article>
     </div>
   </section>
-
 
   <section id="herramientas" class="wrap">
     <div class="section-head">
       <div>
         <h2>Herramientas disponibles</h2>
-        <p>Selecciona una categoría o abre directamente cada app. Para que los botones funcionen en GitHub Pages, todos los archivos HTML deben estar en la misma carpeta que esta página.</p>
+        <p>Selecciona una categoría o busca directamente cada app. Las herramientas externas abren en nueva pestaña.</p>
       </div>
     </div>
+
     <div class="search-box">
       <span class="ico">🔍</span>
       <input type="text" id="searchInput" placeholder="Buscar herramienta por nombre, etiqueta o descripción..." oninput="onSearch()">
       <button class="clear" id="clearBtn" onclick="clearSearch()">✕</button>
     </div>
+
     <div class="results-count" id="resultsCount" style="display:none"></div>
     <div class="filters" id="filters"></div>
     <div class="grid" id="cards"></div>
@@ -175,13 +581,26 @@
     <div class="section-head">
       <div>
         <h2>Servicios que puedo ofrecer</h2>
-        <p>Estas herramientas muestran una línea clara: automatizar controles, ordenar datos, crear cotizadores y convertir procesos manuales en sistemas prácticos.</p>
+        <p>Estas herramientas muestran una línea clara: automatizar controles, ordenar datos, crear cotizadores, desarrollar academias y convertir procesos manuales en sistemas prácticos.</p>
       </div>
     </div>
+
     <div class="process">
-      <div class="step"><b>1</b><h3>Diagnóstico</h3><p>Revisión del proceso actual, formularios, Excels, correos y tareas repetitivas.</p></div>
-      <div class="step"><b>2</b><h3>Prototipo</h3><p>Creación de una herramienta simple en HTML, Google Sheets, Make, Supabase o AppSheet.</p></div>
-      <div class="step"><b>3</b><h3>Implementación</h3><p>Entrega, pruebas, ajustes y guía para que el equipo pueda usarlo sin complicarse.</p></div>
+      <div class="step">
+        <b>1</b>
+        <h3>Diagnóstico</h3>
+        <p>Revisión del proceso actual, formularios, Excels, correos, tareas repetitivas y necesidades del equipo.</p>
+      </div>
+      <div class="step">
+        <b>2</b>
+        <h3>Prototipo</h3>
+        <p>Creación de una herramienta simple en HTML, Google Sheets, Make, Supabase, Apps Script o AppSheet.</p>
+      </div>
+      <div class="step">
+        <b>3</b>
+        <h3>Implementación</h3>
+        <p>Entrega, pruebas, ajustes y guía para que el equipo pueda usarlo sin complicarse.</p>
+      </div>
     </div>
   </section>
 
@@ -189,66 +608,309 @@
     <div class="section-head">
       <div>
         <h2>Contacto</h2>
-        <p>¿Tienes un proceso repetitivo, un Excel pesado o una tarea manual que quieres automatizar? Esta página funciona como vitrina para mostrar ejemplos reales y abrir conversación con posibles clientes.</p>
+        <p>¿Tienes un proceso repetitivo, un Excel pesado, una capacitación que quieres convertir en academia o una tarea manual que quieres automatizar?</p>
       </div>
       <a class="btn primary" href="mailto:lillianaretana.tech@gmail.com">Escríbeme</a>
     </div>
   </section>
 </main>
+
 <footer>
-  <div class="wrap">© 2026 Lilliana Retana Tech · Automatizaciones prácticas para operación, ventas y gestión.</div>
+  <div class="wrap">© 2026 Lilliana Retana Tech · Apps, academias y automatizaciones prácticas para operación, formación y gestión.</div>
 </footer>
+
 <script>
 const tools = [
-  {cat:'Asistentes Inteligentes', icon:'🏠', title:'Lilly — Asistente del Hogar', file:'https://lillianaretana-tech.github.io/Asistente_hogar_LRV/', desc:'Asistente inteligente para hogar, tareas, inglés, recetas y presupuesto familiar.', tags:['IA','Hogar','Asistente']},
-  {cat:'Operaciones', icon:'📈', title:'Control Gerencial', file:'https://lillianaretana-tech.github.io/ControlGerencial/', desc:'Centro de control para seguimiento de proyectos, agenda operativa, indicadores, vencimientos y gestión gerencial.', tags:['Gerencia','Proyectos','Dashboard','Operaciones']},
-  {cat:'Operaciones', icon:'🧹', title:'Auditorías de Limpieza LRV', file:'Auditorias_limpieza_LRV.html', desc:'Sistema de auditoría para limpieza y mantenimiento con evaluación por áreas.', tags:['Auditoría','Calidad','Limpieza']},
-  {cat:'Operaciones', icon:'✅', title:'Audit Pro', file:'Audit_pro.html', desc:'Herramienta para inspecciones, evaluación visual y registro de oportunidades.', tags:['Auditoría','Reporte','Control']},
-  {cat:'Operaciones', icon:'🧪', title:'Sistema de Inspección Química', file:'Sistema inspección químicos VF.html', desc:'Control para inspección y seguimiento de químicos en operación.', tags:['Químicos','Seguridad','Inspección']},
-  {cat:'Operaciones', icon:'🌿', title:'Control Mensual de Reciclaje', file:'Reciclaje - Control Mensual.html', desc:'Registro de pesos, categorías de residuos y exportación para seguimiento ambiental.', tags:['Reciclaje','CSV','Ambiente']},
-  {cat:'Operaciones', icon:'🏖️', title:'Control de Vacaciones', file:'Vacaciones.html', desc:'Sistema para administrar vacaciones, coberturas y datos de colaboradores.', tags:['RRHH','Supabase','Vacaciones']},
-  {cat:'Operaciones', icon:'📝', title:'LRV Tareas', file:'LRV_tareas.html', desc:'Organizador de tareas y pendientes para control diario.', tags:['Tareas','Productividad','Gestión']},
-
-
-  {cat:'Operaciones', icon:'🎫', title:'FaciliDesk — Sistema de Tiquetes', file:'Tiquetes.html', desc:'Sistema profesional de tiquetes para solicitudes, seguimiento técnico, métricas y control operativo.', tags:['Tiquetes','Facilidades','Métricas']},
-
-  {cat:'Operaciones', icon:'📋', title:'Passdown Digital', file:'https://script.google.com/macros/s/AKfycbzuPqYT4c1ABnupU1bWBKy4LyyhQG26JMmmRZIGaa0IytEtiUsx1RmrXHmsA5Oo5DKiRQ/exec', desc:'Sistema de traspaso de información entre turnos para novedades, pendientes e incidencias operativas.', tags:['Passdown','Turnos','Apps Script']},
-
-  {cat:'Operaciones', icon:'📊', title:'Supervisor Tracking — Control de Métricas', file:'Supervisor_tracking.html', desc:'Sistema visual para seguimiento de entregas, cumplimiento y métricas de supervisores con alertas e histórico.', tags:['Supervisión','Dashboard','Métricas']},
-  {cat:'Operaciones', icon:'📦', title:'SBM Inventario', file:'https://lillianaretana-tech.github.io/sbm-inventario/', desc:'Sistema digital para control de inventario, seguimiento de activos y organización operativa de suministros.', tags:['Inventario','Control','Operaciones']},
-  {cat:'Operaciones', icon:'📋', title:'SBM Pedido Mensual', file:'https://lillianaretana-tech.github.io/SBM_Pedido_Mensual/', desc:'Sistema para gestión y control de pedidos mensuales de suministros, facilitando la planificación y seguimiento de requerimientos operativos.', tags:['Pedidos','Inventario','Operaciones']},
-  {cat:'Operaciones', icon:'📦', title:'Pedido Mensual Cliente', file:'https://lillianaretana-tech.github.io/Pedido_mensual_cliente/', desc:'Sistema para gestión de pedidos mensuales orientado a clientes, con seguimiento de solicitudes y control de requerimientos.', tags:['Pedidos','Clientes','Operaciones']},
-  {cat:'Operaciones', icon:'🕐', title:'Control de Asistencia', file:'https://lillianaretana-tech.github.io/Control_asistencia_Codex/', desc:'Sistema de control de asistencia con verificación de ubicación GPS para seguimiento de ingreso y salida del personal.', tags:['Asistencia','GPS','RRHH','Supabase']},
-  {cat:'Operaciones', icon:'🛡️', title:'GoodCatches', file:'https://lillianaretana-tech.github.io/GoodCatches/', desc:'Plataforma para gestión de Good Catches, identificación temprana de riesgos y fortalecimiento de la cultura de seguridad en el lugar de trabajo.', tags:['Seguridad','Riesgos','Good Catch','EHS']},
-  {cat:'Cotizadores', icon:'🏗️', title:'3Rs Cotizador', file:'3Rs Cotizador.html', desc:'Cotizador para remodelaciones y trabajos de construcción.', tags:['Cotización','Construcción','Ventas']},
-  {cat:'Cotizadores', icon:'🧱', title:'Rommel Pro — Asistente de Obras', file:'Rommel_cotizador_personal.html', desc:'Asistente para presupuestos, materiales y gestión básica de obras.', tags:['Obras','Cotizador','Móvil']},
-  {cat:'Cotizadores', icon:'🚗', title:'Calculadora de Costos Mecánicos', file:'V5 calculadora_mecanica movil.html', desc:'Calculadora para generar estimaciones de servicios mecánicos en Costa Rica.', tags:['Mecánica','Precios','Costa Rica']},
-
-  {cat:'Finanzas', icon:'💰', title:'Clasificador Automático de Presupuesto', file:'Presupuesto - clasificador automático.html', desc:'Clasifica compras y gastos por categoría para control presupuestario.', tags:['Exactus','CSV','Presupuesto']},
-  {cat:'Finanzas', icon:'🚀', title:'LillyTech Business Planner', file:'https://lillianaretana-tech.github.io/LillyTechbusiness/', desc:'Plataforma inteligente para evaluar ideas de negocio, oportunidades de ingresos y estrategias de crecimiento empresarial.', tags:['Negocios','Emprendimiento','Ingresos','Estrategia']},
-  
-  {cat:'Educación', icon:'🏆', title:'Cleanroom Mastery', file:'https://lillianaretana-tech.github.io/Cleanroom_mastery/', desc:'Academia interactiva para el dominio de operaciones en Cleanrooms, incluyendo control de contaminación, protocolos, seguridad, calidad y desempeño profesional en ambientes controlados.', tags:['Cleanroom','Mastery','Capacitación','Industria']},
-  {cat:'Educación', icon:'🚀', title:'IA para el Trabajo Real', file:'https://lillianaretana-tech.github.io/IA_aprendizaje_trabajo/', desc:'Programa de capacitación diseñado para enseñar el uso práctico de la Inteligencia Artificial en entornos laborales, mejorando productividad, comunicación, análisis y automatización de tareas.', tags:['IA','Capacitación','Empresas','Productividad']},
-  {cat:'Educación', icon:'🚀', title:'Wordyssey', file:'https://lillianaretana-tech.github.io/Wordyssey/', desc:'Plataforma gamificada de aprendizaje de inglés que combina historias interactivas, desafíos, práctica adaptativa y seguimiento del progreso para desarrollar vocabulario de forma divertida y efectiva.', tags:['Inglés','Gamificación','Aprendizaje','Vocabulario']},
-  {cat:'Educación', icon:'🇺🇸', title:'Aprende Inglés con Bruno', file:'Aprende_inglesbruno.html', desc:'Landing del curso interactivo de inglés para adultos y adultos mayores.', tags:['Inglés','Bruno','Landing']},
-  {cat:'Educación', icon:'📚', title:'Clases Inglés con Bruno', file:'clases_inglesconbruno.html', desc:'Sistema interactivo de aprendizaje de inglés y práctica por niveles.', tags:['Curso','Idiomas','Interactivo']},
-  {cat:'Educación', icon:'🚦', title:'Simulacro Examen de Licencia', file:'https://lillianaretana-tech.github.io/simulador-licencia-Costa_Rica/', desc:'Práctica para examen de licencia de conducir en Costa Rica.', tags:['Licencia','Práctica','Costa Rica']},
-  {cat:'Bienestar', icon:'🌱', title:'Transformación 360° — Landing', file:'Transformacion_360.html', desc:'Página de venta para app de transformación personal, hábitos y progreso.', tags:['Landing','Bienestar','Ventas']},
-  {cat:'Bienestar', icon:'📊', title:'App Transformación 360°', file:'App_Transformacion_360.html', desc:'App personal para hábitos, medidas, alimentación, ejercicio y progreso.', tags:['Hábitos','Salud','App']},
-
-
- {cat:'Educación', icon:'🌍', title:"Bruno's Wordyssey", file:'https://inglesconbruno.com/', desc:'Plataforma educativa para fortalecer el inglés a través de desafíos, exploración de vocabulario, comprensión contextual y aprendizaje gamificado.', tags:['Inglés','Gamificación','Aprendizaje','Idiomas']},
-  {cat:'Educación', icon:'👩‍🏫', title:'Asistente Docente', file:'https://script.google.com/macros/s/AKfycbzifMzvQkM_z7webvBW8XRqNS1IPiO52Qx0jp99s9nMEPjdiTcTEAZ1z6ydaKkbRcYT2Q/exec', desc:'Asistente inteligente para docentes de escuela y colegio con apoyo en planificación, actividades, evaluaciones y organización académica.', tags:['Docentes','Educación','IA']},
-
-  {cat:'Educación', icon:'🇺🇸', title:'Open AI Tutor', file:'https://open-ai-tutor--lillianaretana.replit.app/', desc:'Tutor interactivo para profesores y estudiantes de inglés con apoyo en práctica, enseñanza y desarrollo del idioma.', tags:['Inglés','Tutor','IA']},
-
-  {cat:'Entretenimiento', icon:'✨', title:'Tu Brújula Astrológica', file:'https://lillianaretana-tech.github.io/astrologia/', desc:'Experiencia interactiva de orientación astrológica con análisis personalizados, exploración espiritual y herramientas de autoconocimiento.', tags:['Astrología','Espiritualidad','Experiencia']},
-
-
-  {cat:'Asistentes Inteligentes', icon:'🧠', title:'LillyTech Resource Builder', file:'https://lillianaretana-tech.github.io/Lillytech_resource/', desc:'Asistente estratégica para crear clases, rutas de aprendizaje, contenido, automatizaciones y propuestas listas para usar.', tags:['Recursos','IA','Clases']},
-
-  {cat:'Página principal', icon:'🌐', title:'Landing Automatizaciones', file:'landing_page_automatizacion.html', desc:'Versión anterior de la página de automatizaciones y servicios.', tags:['Portfolio','Servicios','Tech']}
+  {
+    cat:'Educación',
+    icon:'🎓',
+    title:'LillyTech Facilities Academy',
+    file:'https://lillianaretana-tech.github.io/Academia_Hub/',
+    desc:'Hub principal de capacitación corporativa donde las empresas acceden a Leadership Mastery, Cleanroom Mastery y futuros programas especializados para operaciones, manufactura y Facility Services.',
+    tags:['Academia','LMS','Supabase','Leadership','Cleanroom','Empresas']
+  },
+  {
+    cat:'Asistentes Inteligentes',
+    icon:'🏠',
+    title:'Lilly — Asistente del Hogar',
+    file:'https://lillianaretana-tech.github.io/Asistente_hogar_LRV/',
+    desc:'Asistente inteligente para hogar, tareas, inglés, recetas y presupuesto familiar.',
+    tags:['IA','Hogar','Asistente']
+  },
+  {
+    cat:'Operaciones',
+    icon:'📈',
+    title:'Control Gerencial',
+    file:'https://lillianaretana-tech.github.io/ControlGerencial/',
+    desc:'Centro de control para seguimiento de proyectos, agenda operativa, indicadores, vencimientos y gestión gerencial.',
+    tags:['Gerencia','Proyectos','Dashboard','Operaciones']
+  },
+  {
+    cat:'Operaciones',
+    icon:'🧹',
+    title:'Auditorías de Limpieza LRV',
+    file:'Auditorias_limpieza_LRV.html',
+    desc:'Sistema de auditoría para limpieza y mantenimiento con evaluación por áreas.',
+    tags:['Auditoría','Calidad','Limpieza']
+  },
+  {
+    cat:'Operaciones',
+    icon:'✅',
+    title:'Audit Pro',
+    file:'Audit_pro.html',
+    desc:'Herramienta para inspecciones, evaluación visual y registro de oportunidades.',
+    tags:['Auditoría','Reporte','Control']
+  },
+  {
+    cat:'Operaciones',
+    icon:'🧪',
+    title:'Sistema de Inspección Química',
+    file:'Sistema inspección químicos VF.html',
+    desc:'Control para inspección y seguimiento de químicos en operación.',
+    tags:['Químicos','Seguridad','Inspección']
+  },
+  {
+    cat:'Operaciones',
+    icon:'🌿',
+    title:'Control Mensual de Reciclaje',
+    file:'Reciclaje - Control Mensual.html',
+    desc:'Registro de pesos, categorías de residuos y exportación para seguimiento ambiental.',
+    tags:['Reciclaje','CSV','Ambiente']
+  },
+  {
+    cat:'Operaciones',
+    icon:'🏖️',
+    title:'Control de Vacaciones',
+    file:'Vacaciones.html',
+    desc:'Sistema para administrar vacaciones, coberturas y datos de colaboradores.',
+    tags:['RRHH','Supabase','Vacaciones']
+  },
+  {
+    cat:'Operaciones',
+    icon:'📝',
+    title:'LRV Tareas',
+    file:'LRV_tareas.html',
+    desc:'Organizador de tareas y pendientes para control diario.',
+    tags:['Tareas','Productividad','Gestión']
+  },
+  {
+    cat:'Operaciones',
+    icon:'🎫',
+    title:'FaciliDesk — Sistema de Tiquetes',
+    file:'Tiquetes.html',
+    desc:'Sistema profesional de tiquetes para solicitudes, seguimiento técnico, métricas y control operativo.',
+    tags:['Tiquetes','Facilidades','Métricas']
+  },
+  {
+    cat:'Operaciones',
+    icon:'📋',
+    title:'Passdown Digital',
+    file:'https://script.google.com/macros/s/AKfycbzuPqYT4c1ABnupU1bWBKy4LyyhQG26JMmmRZIGaa0IytEtiUsx1RmrXHmsA5Oo5DKiRQ/exec',
+    desc:'Sistema de traspaso de información entre turnos para novedades, pendientes e incidencias operativas.',
+    tags:['Passdown','Turnos','Apps Script']
+  },
+  {
+    cat:'Operaciones',
+    icon:'📊',
+    title:'Supervisor Tracking — Control de Métricas',
+    file:'Supervisor_tracking.html',
+    desc:'Sistema visual para seguimiento de entregas, cumplimiento y métricas de supervisores con alertas e histórico.',
+    tags:['Supervisión','Dashboard','Métricas']
+  },
+  {
+    cat:'Operaciones',
+    icon:'📦',
+    title:'SBM Inventario',
+    file:'https://lillianaretana-tech.github.io/sbm-inventario/',
+    desc:'Sistema digital para control de inventario, seguimiento de activos y organización operativa de suministros.',
+    tags:['Inventario','Control','Operaciones']
+  },
+  {
+    cat:'Operaciones',
+    icon:'📋',
+    title:'SBM Pedido Mensual',
+    file:'https://lillianaretana-tech.github.io/SBM_Pedido_Mensual/',
+    desc:'Sistema para gestión y control de pedidos mensuales de suministros, facilitando la planificación y seguimiento de requerimientos operativos.',
+    tags:['Pedidos','Inventario','Operaciones']
+  },
+  {
+    cat:'Operaciones',
+    icon:'📦',
+    title:'Pedido Mensual Cliente',
+    file:'https://lillianaretana-tech.github.io/Pedido_mensual_cliente/',
+    desc:'Sistema para gestión de pedidos mensuales orientado a clientes, con seguimiento de solicitudes y control de requerimientos.',
+    tags:['Pedidos','Clientes','Operaciones']
+  },
+  {
+    cat:'Operaciones',
+    icon:'🕐',
+    title:'Control de Asistencia',
+    file:'https://lillianaretana-tech.github.io/Control_asistencia_Codex/',
+    desc:'Sistema de control de asistencia con verificación de ubicación GPS para seguimiento de ingreso y salida del personal.',
+    tags:['Asistencia','GPS','RRHH','Supabase']
+  },
+  {
+    cat:'Operaciones',
+    icon:'🛡️',
+    title:'GoodCatches',
+    file:'https://lillianaretana-tech.github.io/GoodCatches/',
+    desc:'Plataforma para gestión de Good Catches, identificación temprana de riesgos y fortalecimiento de la cultura de seguridad en el lugar de trabajo.',
+    tags:['Seguridad','Riesgos','Good Catch','EHS']
+  },
+  {
+    cat:'Cotizadores',
+    icon:'🏗️',
+    title:'3Rs Cotizador',
+    file:'3Rs Cotizador.html',
+    desc:'Cotizador para remodelaciones y trabajos de construcción.',
+    tags:['Cotización','Construcción','Ventas']
+  },
+  {
+    cat:'Cotizadores',
+    icon:'🧱',
+    title:'Rommel Pro — Asistente de Obras',
+    file:'Rommel_cotizador_personal.html',
+    desc:'Asistente para presupuestos, materiales y gestión básica de obras.',
+    tags:['Obras','Cotizador','Móvil']
+  },
+  {
+    cat:'Cotizadores',
+    icon:'🚗',
+    title:'Calculadora de Costos Mecánicos',
+    file:'V5 calculadora_mecanica movil.html',
+    desc:'Calculadora para generar estimaciones de servicios mecánicos en Costa Rica.',
+    tags:['Mecánica','Precios','Costa Rica']
+  },
+  {
+    cat:'Finanzas',
+    icon:'💰',
+    title:'Clasificador Automático de Presupuesto',
+    file:'Presupuesto - clasificador automático.html',
+    desc:'Clasifica compras y gastos por categoría para control presupuestario.',
+    tags:['Exactus','CSV','Presupuesto']
+  },
+  {
+    cat:'Finanzas',
+    icon:'🚀',
+    title:'LillyTech Business Planner',
+    file:'https://lillianaretana-tech.github.io/LillyTechbusiness/',
+    desc:'Plataforma inteligente para evaluar ideas de negocio, oportunidades de ingresos y estrategias de crecimiento empresarial.',
+    tags:['Negocios','Emprendimiento','Ingresos','Estrategia']
+  },
+  {
+    cat:'Educación',
+    icon:'🏆',
+    title:'Cleanroom Mastery',
+    file:'https://lillianaretana-tech.github.io/Cleanroom_mastery/',
+    desc:'Academia interactiva para el dominio de operaciones en Cleanrooms, incluyendo control de contaminación, protocolos, seguridad, calidad y desempeño profesional en ambientes controlados.',
+    tags:['Cleanroom','Mastery','Capacitación','Industria']
+  },
+  {
+    cat:'Educación',
+    icon:'🚀',
+    title:'IA para el Trabajo Real',
+    file:'https://lillianaretana-tech.github.io/IA_aprendizaje_trabajo/',
+    desc:'Programa de capacitación diseñado para enseñar el uso práctico de la Inteligencia Artificial en entornos laborales, mejorando productividad, comunicación, análisis y automatización de tareas.',
+    tags:['IA','Capacitación','Empresas','Productividad']
+  },
+  {
+    cat:'Educación',
+    icon:'🚀',
+    title:'Wordyssey',
+    file:'https://lillianaretana-tech.github.io/Wordyssey/',
+    desc:'Plataforma gamificada de aprendizaje de inglés que combina historias interactivas, desafíos, práctica adaptativa y seguimiento del progreso para desarrollar vocabulario de forma divertida y efectiva.',
+    tags:['Inglés','Gamificación','Aprendizaje','Vocabulario']
+  },
+  {
+    cat:'Educación',
+    icon:'🇺🇸',
+    title:'Aprende Inglés con Bruno',
+    file:'Aprende_inglesbruno.html',
+    desc:'Landing del curso interactivo de inglés para adultos y adultos mayores.',
+    tags:['Inglés','Bruno','Landing']
+  },
+  {
+    cat:'Educación',
+    icon:'📚',
+    title:'Clases Inglés con Bruno',
+    file:'clases_inglesconbruno.html',
+    desc:'Sistema interactivo de aprendizaje de inglés y práctica por niveles.',
+    tags:['Curso','Idiomas','Interactivo']
+  },
+  {
+    cat:'Educación',
+    icon:'🚦',
+    title:'Simulacro Examen de Licencia',
+    file:'https://lillianaretana-tech.github.io/simulador-licencia-Costa_Rica/',
+    desc:'Práctica para examen de licencia de conducir en Costa Rica.',
+    tags:['Licencia','Práctica','Costa Rica']
+  },
+  {
+    cat:'Educación',
+    icon:'🌍',
+    title:"Bruno's Wordyssey",
+    file:'https://inglesconbruno.com/',
+    desc:'Plataforma educativa para fortalecer el inglés a través de desafíos, exploración de vocabulario, comprensión contextual y aprendizaje gamificado.',
+    tags:['Inglés','Gamificación','Aprendizaje','Idiomas']
+  },
+  {
+    cat:'Educación',
+    icon:'👩‍🏫',
+    title:'Asistente Docente',
+    file:'https://script.google.com/macros/s/AKfycbzifMzvQkM_z7webvBW8XRqNS1IPiO52Qx0jp99s9nMEPjdiTcTEAZ1z6ydaKkbRcYT2Q/exec',
+    desc:'Asistente inteligente para docentes de escuela y colegio con apoyo en planificación, actividades, evaluaciones y organización académica.',
+    tags:['Docentes','Educación','IA']
+  },
+  {
+    cat:'Educación',
+    icon:'🇺🇸',
+    title:'Open AI Tutor',
+    file:'https://open-ai-tutor--lillianaretana.replit.app/',
+    desc:'Tutor interactivo para profesores y estudiantes de inglés con apoyo en práctica, enseñanza y desarrollo del idioma.',
+    tags:['Inglés','Tutor','IA']
+  },
+  {
+    cat:'Bienestar',
+    icon:'🌱',
+    title:'Transformación 360° — Landing',
+    file:'Transformacion_360.html',
+    desc:'Página de venta para app de transformación personal, hábitos y progreso.',
+    tags:['Landing','Bienestar','Ventas']
+  },
+  {
+    cat:'Bienestar',
+    icon:'📊',
+    title:'App Transformación 360°',
+    file:'App_Transformacion_360.html',
+    desc:'App personal para hábitos, medidas, alimentación, ejercicio y progreso.',
+    tags:['Hábitos','Salud','App']
+  },
+  {
+    cat:'Asistentes Inteligentes',
+    icon:'🧠',
+    title:'LillyTech Resource Builder',
+    file:'https://lillianaretana-tech.github.io/Lillytech_resource/',
+    desc:'Asistente estratégica para crear clases, rutas de aprendizaje, contenido, automatizaciones y propuestas listas para usar.',
+    tags:['Recursos','IA','Clases']
+  },
+  {
+    cat:'Entretenimiento',
+    icon:'✨',
+    title:'Tu Brújula Astrológica',
+    file:'https://lillianaretana-tech.github.io/astrologia/',
+    desc:'Experiencia interactiva de orientación astrológica con análisis personalizados, exploración espiritual y herramientas de autoconocimiento.',
+    tags:['Astrología','Espiritualidad','Experiencia']
+  },
+  {
+    cat:'Página principal',
+    icon:'🌐',
+    title:'Landing Automatizaciones',
+    file:'landing_page_automatizacion.html',
+    desc:'Versión anterior de la página de automatizaciones y servicios.',
+    tags:['Portfolio','Servicios','Tech']
+  }
 ];
+
 const cats = ['Todas', ...new Set(tools.map(t=>t.cat))];
 let current = 'Todas';
 let searchTerm = '';
@@ -269,6 +931,7 @@ function renderCards(){
   data = data.filter(t=>matchesSearch(t,q));
 
   const countEl = document.getElementById('resultsCount');
+
   if(q){
     countEl.style.display='block';
     countEl.innerHTML = `<strong>${data.length}</strong> resultado${data.length===1?'':'s'} para "${searchTerm.trim()}"`;
@@ -291,7 +954,11 @@ function renderCards(){
     </article>`).join('');
 }
 
-function setCat(c){current=c;renderFilters();renderCards();}
+function setCat(c){
+  current=c;
+  renderFilters();
+  renderCards();
+}
 
 function onSearch(){
   searchTerm = document.getElementById('searchInput').value;
@@ -306,7 +973,8 @@ function clearSearch(){
   renderCards();
 }
 
-renderFilters();renderCards();
+renderFilters();
+renderCards();
 </script>
 </body>
 </html>
