@@ -12,7 +12,7 @@ name: Supabase Keep-Alive (Todos los Proyectos)
 
 on:
   schedule:
-    - cron: '0 12 * * 1,4'   # Lunes y jueves, 12:00 UTC (6:00 am hora CR)
+    - cron: '0 12 * * 1,3,5'   # Lunes, miércoles y viernes, 12:00 UTC (6:00 am hora CR)
   workflow_dispatch:          # Permite ejecutarlo manualmente desde GitHub
 
 jobs:
@@ -81,6 +81,16 @@ jobs:
             url: "https://exuhbfsasoboxmksomar.supabase.co"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4dWhiZnNhc29ib3hta3NvbWFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4Mjk4NjYsImV4cCI6MjA5NTQwNTg2Nn0.Ao8l3NUkHxiDwWmK-GMpsBHgoQalFemb4Lf08yIyz4I"
             table: "movements"
+
+          - name: "Customer Mastery"
+            url: "https://mppreymohttcofvecesf.supabase.co"
+            key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1wcHJleW1vaHR0Y29mdmVjZXNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI2MTIwNjAsImV4cCI6MjA5ODE4ODA2MH0.w82o1Se-dS_5Je32R-PVuyTMWmNy3Izb6tFCYpQbPv4"
+            table: "cs_progress"
+
+          - name: "Supervisor Mastery"
+            url: "https://pbmwolzmhjckhpdxyjal.supabase.co"
+            key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBibXdvbHptaGpja2hwZHh5amFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI2MDgxMTQsImV4cCI6MjA5ODE4NDExNH0.14isBriI6B3Z1uCn27cSYHl-pGxLm_03xneLvAkOPKw"
+            table: "sup_progress"
 
     steps:
       - name: Consultar ${{ matrix.project.name }}
